@@ -74,3 +74,24 @@ create view aParticipant as
 select Participant.participantId, Personne.civilite, Personne.nom, Personne.prenom, Personne.adresse, Personne.telephone, Personne.dateNaissance, Participant.reduction 
 from Participant, Personne where Participant.personneId = Personne.personneId;
 */
+
+
+
+create procedure reserver
+@idvoyage int,
+@places int
+as
+if ((select placesDisponible from Voyage where voyageId = @idvoyage)+@places) <= 9
+	begin
+		update Voyage set placesDisponible = ((select placesDisponible from Voyage where voyageId = @idvoyage)+@places) where voyageId = @idvoyage;
+		print N'Reservation effectuee';
+	end;
+else
+	begin
+		print N'Places insuffisantes';
+	end;
+go 
+
+--select voyageId,dateAller, dateRetour, placesDisponible from Voyage where voyageId = 210;
+
+--exec reserver '210','1';
