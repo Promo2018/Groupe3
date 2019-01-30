@@ -2,7 +2,7 @@
 use BoVoyagesTP2RD;
 
 -- Drop Tables, if necessary, in the correct order.
-drop table AssuranceDossier
+drop table AssuranceDossier;
 drop table DossierParticipant;
 drop table AgenceVoyage;
 drop table Destination;
