@@ -1,0 +1,10 @@
+M.,Italus,Dylan,Italus.Dylan,458
+Mme,Parthenia,Divya,Parthenia.Divya,847
+Autre,Godafrid,Iucunda,Godafrid.Iacunda,456
+Mme,Daffodil,Zorica,Daffodil.Zorrica,111
+Mme,Frederick,Eve,Frederick.Eve,158
+Autre,Michal,Beulah,Michal.Beulah,495
+Mme,Bhavna,Sonam,Bhavna.Sonam,325
+M.,Marijona,Hakon,Marijona.Hakon,147
+Mme,Torvald,Therese,Torvald.Therese,745
+M.,Tau,Clovis,Tau.Clovis,551

@@ -1,0 +1,28 @@
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\bin\Debug\BoVoyages.exe.config
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\bin\Debug\BoVoyages.exe
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\bin\Debug\BoVoyages.pdb
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\obj\Debug\BoVoyages.csprojAssemblyReference.cache
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\obj\Debug\BoVoyages.exe
+C:\Users\Adminl\source\repos\BoVoyages\BoVoyages\obj\Debug\BoVoyages.pdb
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\bin\Debug\BoVoyages.exe.config
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\bin\Debug\BoVoyages.exe
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\bin\Debug\BoVoyages.pdb
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\obj\Debug\BoVoyages.csprojAssemblyReference.cache
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\obj\Debug\BoVoyages.exe
+\\webnet21\Formation\_Nous_Groupe\Damian\BoVoyages\obj\Debug\BoVoyages.pdb
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\bin\Debug\BoVoyages.exe.config
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\bin\Debug\BoVoyages.exe
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\bin\Debug\BoVoyages.pdb
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\obj\Debug\BoVoyages.csprojAssemblyReference.cache
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\obj\Debug\BoVoyages.exe
+\\webnet21\Formation\_Nous_Groupe\Damian\TP2\BoVoyages\obj\Debug\BoVoyages.pdb
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\bin\Debug\BoVoyages.exe.config
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\bin\Debug\BoVoyages.exe
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\bin\Debug\BoVoyages.pdb
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.csprojAssemblyReference.cache
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.exe
+C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.pdb

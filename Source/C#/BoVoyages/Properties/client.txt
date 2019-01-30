@@ -1,0 +1,6 @@
+M.,Jean,Dupont,15 rue du lieu commun,75000,Paris,France,0612233445
+Mme,Kaleva,Meggy,4 rue Sycamore,75005,Paris,France,06400437996
+Autre,Ricohard,Chazael,25 rue Deercove, 75012,Paris,France,0689211591
+M.,Dwyn,Felix,26 rue Devils Hill,75013,Paris,France,0607353375
+M.,Evelin,Ragnvald,3 rue Jennifer Lane, 75004,Paris,France,0658334187
+Mme,Osberht,Jeanne,19 rue Harper,75018,Paris,France,0692567379
