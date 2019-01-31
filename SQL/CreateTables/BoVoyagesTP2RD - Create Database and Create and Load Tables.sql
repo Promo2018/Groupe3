@@ -6674,10 +6674,11 @@ go
 
 -- Join to select all DossierReservations for a particular Participant.
 create view DossiersReservationPourParticipant as 
-select DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
-from DossiersReservation
-inner join DossiersParticipants on DossiersParticipants.dossierId = DossiersReservation.dossierId;
+select DossiersParticipants.participantId, DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
+from DossiersReservation, DossiersParticipants
+where DossiersParticipants.dossierId = DossiersReservation.dossierId;
 go
+
 -- Select all Participants for a particular DossierReservation.
 create view ParticipantsPourDossierReservation as 
 select Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
