@@ -16,10 +16,11 @@ namespace BoVoyages
         static void Main(string[] args)
         {
             System.Console.WriteLine("BoVoyages : Bienvenue.");
+            new Model.Participant().deleteParticipant(7060);
             List<Model.Participant> drs = new Model.Participant().getParticipants();
             foreach (Model.Participant dr in drs)
             {
-                if(dr.Age() < 12)
+                if(dr.ParticipantId == 7005)
                     System.Console.WriteLine(dr.ToString());
             }
 

@@ -80,11 +80,28 @@ namespace BoVoyages.Model
             return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
-        public int deleteParticipant(int ParticipantId)
+        public int deleteParticipant(int participantId)
         {
-//            return DBAccess.getInstance().execNonQuery("delete from aParticipant where ParticipantId = " + ParticipantId + ";");
-//              To be done ! ! !
-            return 0;
+            int ret = 0;
+            bool isPaC = isParticipantaClient(participantId);
+            ret += DBAccess.getInstance().execNonQuery("delete from DossiersParticipants where participantId = " + participantId + ";");
+            ret += DBAccess.getInstance().execNonQuery("delete from Participants where ParticipantId = " + participantId + ";");
+            if (!isPaC)
+            {
+                ret = DBAccess.getInstance().execNonQuery("delete from Personnes where personneId = (select Personnes.personneId from Personnes, Participants where Personnes.personneId = Participants.personneId and  Participants.participantId = " + participantId + ");");
+            }
+            return ret;
+        }
+
+        private bool isParticipantaClient(int participantId)
+        {
+            bool participantIsAClient = false;
+            DataSet ds = DBAccess.getInstance().execSelect("select * from Clients where personneId = (select distinct P.personneId from Participants P, Clients C where P.personneId = C.personneId and P.participantId = " + participantId + ");");
+            foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
+            {
+                participantIsAClient = true; ;
+            }
+            return participantIsAClient;
         }
 
         public int insertParticipant(Participant Participant)
