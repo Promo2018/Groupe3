@@ -1,68 +1,54 @@
-/*
---To drop these views and procedures. Decomment only when necessary.
-drop view aParticipant 
-drop view aClient 
-drop view viewstatus
-drop view DossierReservationPourParticipant
-drop view ParticipantPourDossierReservation
-drop view AssurancePourDossierReservation
-drop view DossierReservationPourAssurance
-drop procedure reserverVoyage
-drop procedure accepterDossier
-drop procedure annulerClient
-drop procedure annulerNoPlaces
-*/
 
 --View for clients whose reservations are either accepted or refused so they can be notified, as one should. 
 create view viewStatus as
 select D.DossierId, D.etatDossierReservation, D.raisonAnnulationDossier, D.clientId, C.email
-from DossierReservation D, Client C
+from DossiersReservation D, Clients C
 where (D.etatDossierReservation = 'ACCEPTEE'or D.etatDossierReservation = 'REFUSEE') and D.clientId = C.clientId
 ;
 
   
 --view of the Client and Personne table together
-create view aClient as 
-select Client.clientId, Personne.civilite, Personne.nom, Personne.prenom, Personne.adresse, Personne.telephone, Personne.dateNaissance, Client.email 
-from Client, Personne where Client.personneId = Personne.personneId;
+create view aClients as 
+select Clients.clientId, Personnes.civilite, Personnes.nom, Personnes.prenom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Clients.email 
+from Clients, Personnes where Clients.personneId = Personnes.personneId;
 
 
 --view of the Participant and Personne together
-create view aParticipant as 
-select Participant.participantId, Personne.civilite, Personne.nom, Personne.prenom, Personne.adresse, Personne.telephone, Personne.dateNaissance, Participant.reduction 
-from Participant, Personne where Participant.personneId = Personne.personneId;
+create view aParticipants as 
+select Participants.participantId, Personnes.civilite, Personnes.nom, Personnes.prenom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
+from Participants, Personnes where Participants.personneId = Personnes.personneId;
 
 
 -- Join to select all DossierReservations for a particular Participant.
-create view DossierReservationPourParticipant as 
-select DossierReservation.dossierId, DossierReservation.etatDossierReservation, DossierReservation.raisonAnnulationDossier, DossierReservation.numeroCarteBancaire, DossierReservation.clientId, DossierReservation.voyageId 
-from DossierReservation
-inner join DossierParticipant on DossierParticipant.dossierId = DossierReservation.dossierId;
+create view DossiersReservationPourParticipants as 
+select DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
+from DossiersReservation
+inner join DossiersParticipants on DossiersParticipants.dossierId = DossiersReservation.dossierId;
 
 
 -- Select all Participants for a particular DossierReservation.
-create view ParticipantPourDossierReservation as 
-select Participant.participantId, Personne.civilite, Personne.prenom, Personne.nom, Personne.adresse, Personne.telephone, Personne.dateNaissance, Participant.reduction 
-from Participant, Personne, DossierParticipant, DossierReservation
-where Participant.personneId = Personne.personneId and 
-DossierParticipant.participantId = Participant.participantId and 
-DossierReservation.dossierId = DossierParticipant.dossierId;
+create view ParticipanstPourDossiersReservation as 
+select Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
+from Participants, Personnes, DossiersParticipants, DossiersReservation
+where Participants.personneId = Personnes.personneId and 
+DossiersParticipants.participantId = Participants.participantId and 
+DossiersReservation.dossierId = DossiersParticipants.dossierId;
 
 
 -- Join to select all Assurances for a particular DossierReservation.
-create view AssurancePourDossierReservation as 
-select Assurance.assuranceId, Assurance.type, Assurance.nom, Assurance.description, DossierReservation.dossierId
-from DossierReservation, AssuranceDossier, Assurance
-where AssuranceDossier.dossierId = DossierReservation.dossierId
-and Assurance.assuranceId = AssuranceDossier.assuranceId;
+create view AssurancesPourDossiersReservation as 
+select Assurances.assuranceId, Assurances.type, Assurances.nom, Assurances.description, DossiersReservation.dossierId
+from DossiersReservation, AssurancesDossiers, Assurances
+where AssurancesDossiers.dossierId = DossiersReservation.dossierId
+and Assurances.assuranceId = AssurancesDossiers.assuranceId;
 
 
 -- Join to select all DossierReservations for a particular Assurance.
 create view DossierReservationPourAssurance as 
-select Assurance.assuranceId, DossierReservation.dossierId, DossierReservation.etatDossierReservation, DossierReservation.raisonAnnulationDossier, DossierReservation.numeroCarteBancaire, DossierReservation.clientId, DossierReservation.voyageId 
-from DossierReservation, AssuranceDossier, Assurance
-where AssuranceDossier.dossierId = DossierReservation.dossierId
-and Assurance.assuranceId = AssuranceDossier.assuranceId;
+select Assurances.assuranceId, DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
+from DossiersReservation, AssurancesDossiers, Assurances
+where AssurancesDossiers.dossierId = DossiersReservation.dossierId
+and Assurances.assuranceId = AssurancesDossiers.assuranceId;
 
 
 
@@ -72,11 +58,11 @@ create procedure reserverVoyage
 @places int
 as
 DECLARE @PlaceRestantes int
-SET @PlaceRestantes = (select placesDisponible from Voyage where voyageId = @idvoyage);
+SET @PlaceRestantes = (select placesDisponible from Voyages where voyageId = @idvoyage);
 
 if @PlaceRestantes >= @places
 	begin
-		update Voyage set placesDisponible = (@PlaceRestantes-@places) where voyageId = @idvoyage;
+		update Voyages set placesDisponible = (@PlaceRestantes-@places) where voyageId = @idvoyage;
 		print N'Reservation effectuee';
 	end;
 else
@@ -93,7 +79,7 @@ create procedure accepterDossier
 as
 DECLARE @clientmail nvarchar(32);
 SET @clientmail = (select email from viewstatus where dossierId = @iddossier);
-update DossierReservation set etatDossierReservation = 'ACCEPTEE' where dossierId = @iddossier;
+update DossiersReservation set etatDossierReservation = 'ACCEPTEE' where dossierId = @iddossier;
 Print concat ('dossier acceptee. Informer client : ', @clientmail);
 go
 
@@ -102,7 +88,7 @@ go
 create procedure annulerClient
 @iddossier int
 as
-update DossierReservation set raisonAnnulationDossier = 'CLIENT' where dossierId = @iddossier;
+update DossiersReservation set raisonAnnulationDossier = 'CLIENT' where dossierId = @iddossier;
 Print N'Annulation par client reussie';
 go
 
@@ -113,8 +99,6 @@ create procedure annulerNoPlaces
 as
 DECLARE @clientmail nvarchar(32);
 SET @clientmail = (select email from viewstatus where dossierId = @iddossier);
-update DossierReservation set raisonAnnulationDossier = 'placesInsuffisantes' where dossierId = @iddossier;
+update DossiersReservation set raisonAnnulationDossier = 'placesInsuffisantes' where dossierId = @iddossier;
 Print concat ('dossier annule. Informer client places insuffisantes : ', @clientmail);
 go
-
-
