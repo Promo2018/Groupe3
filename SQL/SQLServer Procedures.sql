@@ -20,23 +20,21 @@ from Participants, Personnes where Participants.personneId = Personnes.personneI
 
 
 -- Join to select all DossierReservations for a particular Participant.
-create view DossiersReservationPourParticipants as 
+create view DossiersReservationPourParticipant as 
 select DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
 from DossiersReservation
 inner join DossiersParticipants on DossiersParticipants.dossierId = DossiersReservation.dossierId;
 
-
 -- Select all Participants for a particular DossierReservation.
-create view ParticipantsPourDossiersReservation as 
+create view ParticipantsPourDossierReservation as 
 select Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
 from Participants, Personnes, DossiersParticipants, DossiersReservation
 where Participants.personneId = Personnes.personneId and 
 DossiersParticipants.participantId = Participants.participantId and 
 DossiersReservation.dossierId = DossiersParticipants.dossierId;
 
-
 -- Join to select all Assurances for a particular DossierReservation.
-create view AssurancesPourDossiersReservation as 
+create view AssurancesPourDossierReservation as 
 select Assurances.assuranceId, Assurances.type, Assurances.nom, Assurances.description, DossiersReservation.dossierId
 from DossiersReservation, AssurancesDossiers, Assurances
 where AssurancesDossiers.dossierId = DossiersReservation.dossierId
@@ -44,7 +42,7 @@ and Assurances.assuranceId = AssurancesDossiers.assuranceId;
 
 
 -- Join to select all DossierReservations for a particular Assurance.
-create view DossierReservationPourAssurance as 
+create view DossiersReservationPourAssurance as 
 select Assurances.assuranceId, DossiersReservation.dossierId, DossiersReservation.etatDossierReservation, DossiersReservation.raisonAnnulationDossier, DossiersReservation.numeroCarteBancaire, DossiersReservation.clientId, DossiersReservation.voyageId 
 from DossiersReservation, AssurancesDossiers, Assurances
 where AssurancesDossiers.dossierId = DossiersReservation.dossierId
