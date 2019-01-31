@@ -1,0 +1,15 @@
+insert into Assurances (type, nom, description) values ('BAGGAGE', 'Hilll and Sons', 'eros vestibulum ac est lacinia nisi venenatis tristique');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Hegmann-Watsica', 'viverra diam vitae quam suspendisse potenti nullam');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Effertz, Carroll and Stroman', 'lectus pellentesque eget nunc donec');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Kozey, Runolfsdottir and Cummings', 'dictumst etiam faucibus cursus urna ut');
+insert into Assurances (type, nom, description) values ('BAGGAGE', 'Carroll, Satterfield and Parisian', 'et ultrices posuere cubilia curae mauris viverra diam vitae');
+insert into Assurances (type, nom, description) values ('RAPATRIEMENT', 'Von-Ortiz', 'urna pretium nisl ut volutpat sapien arcu sed augue aliquam');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Senger-Pacocha', 'ac nibh fusce lacus purus');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Von-Yost', 'eget tempus vel pede morbi porttitor lorem id ligula suspendisse');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Friesen-Legros', 'pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis');
+insert into Assurances (type, nom, description) values ('BAGGAGE', 'Brakus, Little and Mraz', 'augue vestibulum rutrum rutrum neque aenean auctor gravida');
+insert into Assurances (type, nom, description) values ('BAGGAGE', 'Dickinson-Yundt', 'nam congue risus semper porta volutpat quam pede lobortis ligula');
+insert into Assurances (type, nom, description) values ('BAGGAGE', 'Prosacco Inc', 'sed accumsan felis ut at dolor');
+insert into Assurances (type, nom, description) values ('RAPATRIEMENT', 'Cartwright-Feest', 'nibh ligula nec sem duis aliquam convallis nunc proin');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Tillman-Olson', 'sed interdum venenatis turpis enim blandit mi in porttitor');
+insert into Assurances (type, nom, description) values ('ANNULATION', 'Abbott, Halvorson and O''Connell', 'sagittis nam congue risus semper porta volutpat quam pede');
