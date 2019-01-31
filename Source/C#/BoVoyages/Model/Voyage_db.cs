@@ -9,16 +9,15 @@ namespace BoVoyages.Model
 {
     class Voyage_db
     {
-        private string table = "Voyages";
-
-        public Voyage_db voyage_db = new Voyage_db();
+        private const string table = "Voyages";
+        private const string view = "allVoyages";
 
         public Voyage_db() { }
 
         public Voyage getVoyage(int voyageId)
         {
             Voyage voyage = new Voyage();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where voyageId = " + voyageId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + view + " where voyageId = " + voyageId + " order by dateAller;");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyage = getVoyage(row);
@@ -30,7 +29,7 @@ namespace BoVoyages.Model
         public List<Voyage> getVoyages(string key, string value)
         {
             List<Voyage> voyages = new List<Voyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + view + " where " + key + " = '" + value + "' order by dateAller;");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyages.Add(getVoyage(row));
@@ -42,7 +41,7 @@ namespace BoVoyages.Model
         public List<Voyage> getVoyages()
         {
             List<Voyage> voyages = new List<Voyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + view + " order by dateAller;");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyages.Add(getVoyage(row));
@@ -57,8 +56,13 @@ namespace BoVoyages.Model
                               (DateTime)(row["dateRetour"]),
                               int.Parse(row["placesDisponible"].ToString()),
                               float.Parse(row["tarifToutCompris"].ToString()),
-                              int.Parse(row["destinationId"].ToString()),
-                              int.Parse(row["agenceId"].ToString())
+                              new Destination(int.Parse(row["destinationId"].ToString()),
+                                              row["continent"].ToString(),
+                                              row["pays"].ToString(),
+                                              row["region"].ToString(),
+                                              row["description"].ToString()),
+                              new AgenceVoyage(int.Parse(row["agenceId"].ToString()),
+                                              row["nom"].ToString())
                               );
         }
 
@@ -80,8 +84,8 @@ namespace BoVoyages.Model
                                                                             voyage.DateRetour.ToShortDateString() + "', '" +
                                                                             voyage.PlacesDisponible + "', '" +
                                                                             voyage.TarifToutCompris + "', '" +
-                                                                            voyage.DestinationId + "', '" +
-                                                                            voyage.AgenceId + ");");
+                                                                            voyage.Destination.DestinationId + "', '" +
+                                                                            voyage.Agence.AgenceId + ");");
         }
 
     }

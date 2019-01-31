@@ -107,8 +107,8 @@ namespace BoVoyages.Model
             return DBAccess.getInstance().execNonQuery("insert into " + table + " (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
                                                                                         dossier.EtatReservation.ToString() + "', '" +
                                                                                         dossier.RaisonAnnulation.ToString() + "', '" +
-                                                                                        dossier.NumeroCarteBancaire + "', '" +
-                                                                                        dossier.ClientId + "', '" +
+                                                                                        dossier.NumeroCarteBancaire + "', " +
+                                                                                        dossier.ClientId + ", " +
                                                                                         dossier.VoyageId + ");");
         }
     }

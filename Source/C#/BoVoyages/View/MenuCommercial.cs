@@ -8,13 +8,15 @@ namespace BoVoyages.View
 {
     public class MenuCommercial : Menu
     {
-        private MenuVoyage menuVoyage = null;
-        private MenuClient menuClient = null;
+        private Menu previousMenu;
+        private MenuGestionVoyage menuVoyage = null;
+        private MenuGestionClient menuClient = null;
 
-        public MenuCommercial()
+        public MenuCommercial(Menu previousMenu)
         {
-            menuVoyage = new MenuVoyage(this);
-            menuClient = new MenuClient(this);
+            this.previousMenu = previousMenu;
+            menuVoyage = new MenuGestionVoyage(this);
+            menuClient = new MenuGestionClient(this);
             nombreOptions = 2;
         }
 
@@ -38,6 +40,10 @@ namespace BoVoyages.View
             } else if(sel == 2)
             {
                 menu = menuClient;
+            }
+            else if (sel == 0)
+            {
+                menu = previousMenu;
             }
 
             return menu;

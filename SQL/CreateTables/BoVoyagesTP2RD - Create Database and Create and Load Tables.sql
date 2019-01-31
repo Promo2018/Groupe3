@@ -72,7 +72,7 @@ primary key(clientId)
 -- participantId foreign key must be between 7001-7090
 create table Participants (
 participantId int not null identity(7001,1),
-reduction float not null,
+reduction int not null,
 personneId int foreign key references Personnes(personneId),
 primary key(participantId)
 );
@@ -6672,8 +6672,16 @@ select Participants.participantId, Personnes.civilite, Personnes.nom, Personnes.
 from Participants, Personnes where Participants.personneId = Personnes.personneId;
 go
 
-update aParticipant set reduction = 1  where dateNaissance <= '2007-01-31';
-update aParticipant set reduction = 0.6  where dateNaissance > '2007-01-31';
+update aParticipant set reduction = 100  where dateNaissance <= '2007-01-31';
+update aParticipant set reduction = 60  where dateNaissance > '2007-01-31';
+go
+
+--drop view allVoyages
+create view allVoyages as 
+select V.voyageId, V.dateAller, V.dateRetour, V.placesDisponible, V.tarifToutCompris, 
+D.destinationId, D.continent, D.pays, D.region, D.description, A.agenceId, A.nom 
+from Voyages V, Destinations D, Agencesvoyages A 
+where V.destinationId = D.destinationId and V.agenceId = A.agenceId;
 go
 
 -- Join to select all DossierReservations for a particular Participant.

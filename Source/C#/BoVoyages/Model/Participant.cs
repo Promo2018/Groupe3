@@ -10,7 +10,7 @@ namespace BoVoyages.Model
     {
         private Participant_db participant_Db = new Participant_db();
         private int participantId;
-        private float reduction;
+        private int reduction;
 
         public Participant() {}
 
@@ -21,14 +21,14 @@ namespace BoVoyages.Model
                            string adresse, 
                            string telephone, 
                            DateTime dateNaissance,
-                           float reduction) : base(civilite, nom, prenom, adresse, telephone, dateNaissance)
+                           int reduction) : base(civilite, nom, prenom, adresse, telephone, dateNaissance)
         {
             this.ParticipantId = participantId;
             this.Reduction = reduction;
         }
 
         public int ParticipantId { get => participantId; set => participantId = value; }
-        public float Reduction { get => reduction; set => reduction = value; }
+        public int Reduction { get => reduction; set => reduction = value; }
 
         public Participant getParticipant(int participantId)
         {

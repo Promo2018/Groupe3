@@ -40,5 +40,30 @@ namespace BoVoyages.View
             return selection;
         }
 
+        public void display(string displayString)
+        {
+            Console.WriteLine(displayString);
+        }
+
+        public string readString()
+        {
+            return Console.ReadLine();
+        }
+
+        public int readInt()
+        {
+            int input = 0;
+            try
+            {
+                input = Int32.Parse(System.Console.ReadLine());
+            }
+            catch (FormatException fe)
+            {
+                System.Console.WriteLine("BoVoyages: Veuillez entrer un chiffre");
+                input = lire();
+            }
+            return input;
+        }
+
     }
 }

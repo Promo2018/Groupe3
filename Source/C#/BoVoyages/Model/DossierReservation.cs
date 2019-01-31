@@ -19,6 +19,8 @@ namespace BoVoyages.Model
 
         public DossierReservation()
         {
+            this.EtatReservation = new EtatDossierReservation(EtatDossierReservation.ENATTENTE);
+            this.RaisonAnnulation = new RaisonAnnulationDossier(RaisonAnnulationDossier.NONE);
         }
 
         public DossierReservation(int dossierId, string dossierStatus, string cancelReason, string numeroCarteBancaire, int clientId, int voyageId)

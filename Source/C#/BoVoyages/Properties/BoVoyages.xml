@@ -1,5 +1,8 @@
 <BoVoyages>
+	<!-- Nom de Base de Données -->
 	<Database>BoVoyagesTP2RD</Database>
+	<!-- Nom de Machine ou le Base de Données est heberger. -->
 	<Host>localhost</Host>
+	<!-- Assurance C'est le Prix total plus 5% -->
+	<AssuranceTarif>1.05</AssuranceTarif>
 </BoVoyages>
-	

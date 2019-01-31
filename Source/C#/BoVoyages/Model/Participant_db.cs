@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class Participant_db
+    class Participant_db : Personne_db
     {
         private string table = "aParticipant";
 
@@ -59,7 +59,7 @@ namespace BoVoyages.Model
                                    row["adresse"].ToString(),
                                    row["telephone"].ToString(),
                                    ((DateTime)row["dateNaissance"]),
-                                   float.Parse(row["reduction"].ToString()));
+                                   int.Parse(row["reduction"].ToString()));
         }
 
         public List<DossierReservation> getDossiersForParticipant(int participantId)
@@ -104,16 +104,21 @@ namespace BoVoyages.Model
             return participantIsAClient;
         }
 
-        public int insertParticipant(Participant Participant)
+        public int insertParticipant(Participant participant)
         {
-            return DBAccess.getInstance().execNonQuery("insert into " + table + " (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
-                                                                                  Participant.Civilite + "', '" +
-                                                                                  Participant.Nom + "', '" +
-                                                                                  Participant.Prenom + "', '" +
-                                                                                  Participant.Adresse + "', '" +
-                                                                                  Participant.Telephone + "', '" +
-                                                                                  Participant.DateNaissance.ToShortDateString() + "', " +
-                                                                                  Participant.Reduction + ");");
+            int id = insertPersonne(participant);
+            if(participant.Age() < 12)
+            {
+                participant.Reduction = 60;
+            } else
+            {
+                participant.Reduction = 100;
+            }
+            DBAccess.getInstance().execNonQuery("insert into Participants (reduction, personneId) values (" +
+                                                                           participant.Reduction + ", " +
+                                                                           id + ");");
+            id = getLastIdentityId();
+            return id;
         }
 
     }

@@ -16,6 +16,8 @@ namespace BoVoyages
         static void Main(string[] args)
         {
             System.Console.WriteLine("BoVoyages : Bienvenue.");
+            showMenu(new MenuPrincipal());
+/*
             new Model.Participant().deleteParticipant(7060);
             List<Model.Participant> drs = new Model.Participant().getParticipants();
             foreach (Model.Participant dr in drs)

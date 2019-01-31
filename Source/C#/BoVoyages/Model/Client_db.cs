@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class Client_db
+    class Client_db : Personne_db
     {
         private string table = "aClient";
 
@@ -75,14 +75,12 @@ namespace BoVoyages.Model
 
         public int insertClient(Client client)
         {
-            return DBAccess.getInstance().execNonQuery("insert into " + table + " (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
-                                                                             client.Civilite + "', '" +
-                                                                             client.Nom + "', '" +
-                                                                             client.Prenom + "', '" +
-                                                                             client.Adresse + "', '" +
-                                                                             client.Telephone + "', '" +
-                                                                             client.DateNaissance.ToShortDateString() + "', " +
-                                                                             client.Email + ");");
+            int id = insertPersonne(client);
+            DBAccess.getInstance().execNonQuery("insert into Clients (email, personneId) values ('" +
+                                                                             client.Email + "', " +
+                                                                             id + ");");
+            id = getLastIdentityId();
+            return id;
         }
     }
 }

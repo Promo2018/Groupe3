@@ -7,14 +7,14 @@ using BoVoyages.Controller;
 
 namespace BoVoyages.View
 {
-    public class MenuVoyage : Menu
+    class MenuVoyage : Menu
     {
-        private GestionVoyage gestionVoyage = new GestionVoyage();
         Menu previousMenu;
+        private Voyage voyage = new Voyage();
 
         public MenuVoyage(Menu previousMenu)
         {
-            nombreOptions = 4;
+            nombreOptions = 3;
             this.previousMenu = previousMenu;
         }
 
@@ -24,9 +24,8 @@ namespace BoVoyages.View
             System.Console.WriteLine("******   Menu Voyage   **********************************************");
             System.Console.WriteLine("BoVoyages : Sélectionnez une option dans la liste ci-dessous :");
             System.Console.WriteLine("BoVoyages :\t 1 - Liste de voyages disponible");
-            System.Console.WriteLine("BoVoyages :\t 2 - Supprimer les voyages expirés");
-            System.Console.WriteLine("BoVoyages :\t 3 - Ajouter les voyages");
-            System.Console.WriteLine("BoVoyages :\t 4 - Enregistrer");
+            System.Console.WriteLine("BoVoyages :\t 2 - Reserver un Voyage");
+            System.Console.WriteLine("BoVoyages :\t 3 - Supprimer un Voyage Reservation");
             System.Console.WriteLine("BoVoyages :\t 0 - Quitter");
         }
 
@@ -36,23 +35,20 @@ namespace BoVoyages.View
 
             if (sel == 1)
             {
-                System.Console.WriteLine("BoVoyages >>>>>>>>> - Liste de voyages disponible");
-                gestionVoyage.listVoyages();
+                System.Console.WriteLine("Voyage Id" + "\t" + "Date-Aller" + "\t" + "Date-Retour" + "\t" + "Places Disponible" + "\t" + "Tarif Tout Compris" + "\t" + "Pays");
+                foreach (Model.Voyage voyage in voyage.getVoyages())
+                {
+                    System.Console.WriteLine(voyage.VoyageId + "\t" + voyage.DateAller.ToShortDateString() + "\t" + voyage.DateRetour.ToShortDateString() + "\t" + voyage.PlacesDisponible + "\t\t\t" + voyage.TarifToutCompris + "\t\t\t" + voyage.Destination.Pays);
+                }
             }
             else if (sel == 2)
             {
-                System.Console.WriteLine("BoVoyages >>>>>>>>> - Supprimer les voyages expirés");
-                gestionVoyage.supprimerVoyagesExpires();
+
+                voyage.createReservation(this);
             }
             else if (sel == 3)
             {
-                System.Console.WriteLine("BoVoyages >>>>>>>>> - Ajouter les voyages");
-                gestionVoyage.ajouterVoyages();
-            }
-            else if (sel == 4)
-            {
-                System.Console.WriteLine("BoVoyages >>>>>>>>> - Enregistrer");
-                gestionVoyage.enregistrer();
+                System.Console.WriteLine("BoVoyages >>>>>>>>> - Supprimer un Voyage Reservation");
             }
             else if (sel == 0)
             {
