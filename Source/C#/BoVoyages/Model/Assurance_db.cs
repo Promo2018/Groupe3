@@ -9,12 +9,14 @@ namespace BoVoyages.Model
 {
     class Assurance_db
     {
+        private string table = "Assurances";
+
         public Assurance_db() {}
 
         public Assurance getAssurance(int assuranceId)
         {
             Assurance assurance = new Assurance();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Assurance where assuranceId = " + assuranceId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where assuranceId = " + assuranceId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 assurance = getAssurance(row);
@@ -26,7 +28,7 @@ namespace BoVoyages.Model
         public List<Assurance> getAssurances(string key, string value)
         {
             List<Assurance> assurances = new List<Assurance>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Assurance where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 assurances.Add(getAssurance(row));
@@ -38,7 +40,7 @@ namespace BoVoyages.Model
         public List<Assurance> getAssurances()
         {
             List<Assurance> assurances = new List<Assurance>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Assurance;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 assurances.Add(getAssurance(row));
@@ -95,17 +97,17 @@ namespace BoVoyages.Model
 
         public int updateAssurance(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update Assurance set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteAssurance(int assuranceId)
         {
-            return DBAccess.getInstance().execNonQuery("delete from Assurance where assuranceId = " + assuranceId + ";"); ;
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where assuranceId = " + assuranceId + ";"); ;
         }
 
         public int insertAssurance(Assurance assurance)
         {
-            return DBAccess.getInstance().execNonQuery("insert into Assurance (assuranceId, type, nom, description) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (assuranceId, type, nom, description) values ('" +
                                                                                assurance.AssuranceId + "', '" +
                                                                                assurance.Type.ToString() + "', '" +
                                                                                assurance.Nom + "', '" +

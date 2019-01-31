@@ -9,6 +9,8 @@ namespace BoVoyages.Model
 {
     class Participant_db
     {
+        private string table = "aParticipant";
+
         public Participant_db()
         {
         }
@@ -16,7 +18,7 @@ namespace BoVoyages.Model
         public Participant getParticipant(int participantId)
         {
             Participant participant = new Participant();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aParticipant where ParticipantId = " + participantId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where ParticipantId = " + participantId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 participant = getParticipant(row);
@@ -28,7 +30,7 @@ namespace BoVoyages.Model
         public List<Participant> getParticipants(string key, string value)
         {
             List<Participant> participants = new List<Participant>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aParticipant where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 participants.Add(getParticipant(row));
@@ -40,7 +42,7 @@ namespace BoVoyages.Model
         public List<Participant> getParticipants()
         {
             List<Participant> participants = new List<Participant>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aParticipant;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 participants.Add(getParticipant(row));
@@ -75,7 +77,7 @@ namespace BoVoyages.Model
 
         public int updateParticipant(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update aParticipant set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteParticipant(int ParticipantId)
@@ -87,7 +89,7 @@ namespace BoVoyages.Model
 
         public int insertParticipant(Participant Participant)
         {
-            return DBAccess.getInstance().execNonQuery("insert into aParticipant (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
                                                                                   Participant.Civilite + "', '" +
                                                                                   Participant.Nom + "', '" +
                                                                                   Participant.Prenom + "', '" +

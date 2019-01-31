@@ -8,13 +8,13 @@ where (D.etatDossierReservation = 'ACCEPTEE'or D.etatDossierReservation = 'REFUS
 
   
 --view of the Client and Personne table together
-create view aClients as 
+create view aClient as 
 select Clients.clientId, Personnes.civilite, Personnes.nom, Personnes.prenom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Clients.email 
 from Clients, Personnes where Clients.personneId = Personnes.personneId;
 
 
 --view of the Participant and Personne together
-create view aParticipants as 
+create view aParticipant as 
 select Participants.participantId, Personnes.civilite, Personnes.nom, Personnes.prenom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
 from Participants, Personnes where Participants.personneId = Personnes.personneId;
 
@@ -27,7 +27,7 @@ inner join DossiersParticipants on DossiersParticipants.dossierId = DossiersRese
 
 
 -- Select all Participants for a particular DossierReservation.
-create view ParticipanstPourDossiersReservation as 
+create view ParticipantsPourDossiersReservation as 
 select Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
 from Participants, Personnes, DossiersParticipants, DossiersReservation
 where Participants.personneId = Personnes.personneId and 

@@ -9,12 +9,14 @@ namespace BoVoyages.Model
 {
     class AgenceVoyage_db
     {
+        private string table = "AgencesVoyages";
+
         public AgenceVoyage_db() { }
 
         public AgenceVoyage getAgenceVoyage(int agenceId)
         {
             AgenceVoyage agenceVoyage = new AgenceVoyage();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from AgenceVoyage where agenceId = " + agenceId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where agenceId = " + agenceId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 agenceVoyage = getAgenceVoyage(row);
@@ -26,7 +28,7 @@ namespace BoVoyages.Model
         public List<AgenceVoyage> getAgenceVoyages(string key, string value)
         {
             List<AgenceVoyage> agenceVoyages = new List<AgenceVoyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from AgenceVoyage where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 agenceVoyages.Add(getAgenceVoyage(row));
@@ -38,7 +40,7 @@ namespace BoVoyages.Model
         public List<AgenceVoyage> getAgenceVoyages()
         {
             List<AgenceVoyage> agenceVoyages = new List<AgenceVoyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from AgenceVoyage;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 agenceVoyages.Add(getAgenceVoyage(row));
@@ -55,17 +57,17 @@ namespace BoVoyages.Model
 
         public int updateAgenceVoyage(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update AgenceVoyage set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteAgenceVoyage(int agenceId)
         {
-            return DBAccess.getInstance().execNonQuery("delete from AgenceVoyage where agenceId = " + agenceId + ";"); ;
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where agenceId = " + agenceId + ";"); ;
         }
 
         public int insertAgenceVoyage(AgenceVoyage agenceVoyage)
         {
-            return DBAccess.getInstance().execNonQuery("insert into AgenceVoyage (agenceId, nom) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (agenceId, nom) values ('" +
                                                                                   agenceVoyage.AgenceId + "', '" +
                                                                                   agenceVoyage.Nom + ");");
         }

@@ -9,6 +9,8 @@ namespace BoVoyages.Model
 {
     class Client_db
     {
+        private string table = "aClient";
+
         public Client_db()
         {
         }
@@ -16,7 +18,7 @@ namespace BoVoyages.Model
         public Client getClient(int clientId)
         {
             Client client = new Client();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aClient where ClientId = " + clientId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where ClientId = " + clientId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 client = getClient(row);
@@ -28,7 +30,7 @@ namespace BoVoyages.Model
         public List<Client> getClients(string key, string value)
         {
             List<Client> clients = new List<Client>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aClient where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 clients.Add(getClient(row));
@@ -40,7 +42,7 @@ namespace BoVoyages.Model
         public List<Client> getClients()
         {
             List<Client> clients = new List<Client>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from aClient;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 clients.Add(getClient(row));
@@ -62,18 +64,18 @@ namespace BoVoyages.Model
 
         public int updateClient(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update aClient set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteClient(int clientId)
         {
             new DossierReservation_db().deleteDossiersForClient(clientId);
-            return DBAccess.getInstance().execNonQuery("delete from aClient where clientId = " + clientId+ ";");
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where clientId = " + clientId+ ";");
         }
 
         public int insertClient(Client client)
         {
-            return DBAccess.getInstance().execNonQuery("insert into aClient (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (civilite, nom, prenom, adresse, telephone, DOB, email) values ('" +
                                                                              client.Civilite + "', '" +
                                                                              client.Nom + "', '" +
                                                                              client.Prenom + "', '" +

@@ -9,6 +9,8 @@ namespace BoVoyages.Model
 {
     class DossierReservation_db
     {
+        private string table = "DossiersReservation";
+
         public DossierReservation_db()
         {
         }
@@ -16,7 +18,7 @@ namespace BoVoyages.Model
         public DossierReservation getDossier(int dossierId)
         {
             DossierReservation dossier = new DossierReservation();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from DossierReservation where DossierId = " + dossierId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where DossierId = " + dossierId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 dossier = getDossier(row);
@@ -28,7 +30,7 @@ namespace BoVoyages.Model
         public List<DossierReservation> getDossiers(string key, string value)
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from DossierReservation where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 dossiers.Add(getDossier(row));
@@ -40,7 +42,7 @@ namespace BoVoyages.Model
         public List<DossierReservation> getDossiers()
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from DossierReservation;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 dossiers.Add(getDossier(row));
@@ -87,12 +89,12 @@ namespace BoVoyages.Model
 
         public int updateDossier(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update DossierReservation set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteDossier(int dossierId)
         {
-            return DBAccess.getInstance().execNonQuery("delete from DossierReservation where dossierId = " + dossierId + ";");
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where dossierId = " + dossierId + ";");
         }
 
         public int deleteDossiersForClient(int clientId)
@@ -102,7 +104,7 @@ namespace BoVoyages.Model
 
         public int insertDossier(DossierReservation dossier)
         {
-            return DBAccess.getInstance().execNonQuery("insert into DossierReservation (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
                                                                                         dossier.EtatReservation.ToString() + "', '" +
                                                                                         dossier.RaisonAnnulation.ToString() + "', '" +
                                                                                         dossier.NumeroCarteBancaire + "', '" +

@@ -9,6 +9,8 @@ namespace BoVoyages.Model
 {
     class Voyage_db
     {
+        private string table = "Voyages";
+
         public Voyage_db voyage_db = new Voyage_db();
 
         public Voyage_db() { }
@@ -16,7 +18,7 @@ namespace BoVoyages.Model
         public Voyage getVoyage(int voyageId)
         {
             Voyage voyage = new Voyage();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Voyage where voyageId = " + voyageId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where voyageId = " + voyageId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyage = getVoyage(row);
@@ -28,7 +30,7 @@ namespace BoVoyages.Model
         public List<Voyage> getVoyages(string key, string value)
         {
             List<Voyage> voyages = new List<Voyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Voyage where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyages.Add(getVoyage(row));
@@ -40,7 +42,7 @@ namespace BoVoyages.Model
         public List<Voyage> getVoyages()
         {
             List<Voyage> voyages = new List<Voyage>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Voyage;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 voyages.Add(getVoyage(row));
@@ -62,17 +64,17 @@ namespace BoVoyages.Model
 
         public int updateVoyage(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update Voyage set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteVoyage(int voyageId)
         {
-            return DBAccess.getInstance().execNonQuery("delete from Voyage where voyageId = " + voyageId + ";"); ;
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where voyageId = " + voyageId + ";"); ;
         }
 
         public int insertVoyage(Voyage voyage)
         {
-            return DBAccess.getInstance().execNonQuery("insert into Voyage (voyageId, dateAller, dateRetour, placesDisponible, tarifToutCompris, destinationId, agenceId) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (voyageId, dateAller, dateRetour, placesDisponible, tarifToutCompris, destinationId, agenceId) values ('" +
                                                                             voyage.VoyageId + "', '" +
                                                                             voyage.DateAller.ToShortDateString() + "', '" +
                                                                             voyage.DateRetour.ToShortDateString() + "', '" +

@@ -9,12 +9,14 @@ namespace BoVoyages.Model
 {
     class Destination_db
     {
+        private string table = "Destinations";
+
         public Destination_db() { }
 
         public Destination getDestination(int destinationId)
         {
             Destination destination = new Destination();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Destination where destinationId = " + destinationId + ";");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where destinationId = " + destinationId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 destination = getDestination(row);
@@ -26,7 +28,7 @@ namespace BoVoyages.Model
         public List<Destination> getDestinations(string key, string value)
         {
             List<Destination> destinations = new List<Destination>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Destination where " + key + " = '" + value + "';");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where " + key + " = '" + value + "';");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 destinations.Add(getDestination(row));
@@ -38,7 +40,7 @@ namespace BoVoyages.Model
         public List<Destination> getDestinations()
         {
             List<Destination> destinations = new List<Destination>();
-            DataSet ds = DBAccess.getInstance().execSelect("select * from Destination;");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 destinations.Add(getDestination(row));
@@ -58,17 +60,17 @@ namespace BoVoyages.Model
 
         public int updateDestination(string change, string condition)
         {
-            return DBAccess.getInstance().execNonQuery("update Destination set " + change + " where " + condition + ";");
+            return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
         public int deleteDestination(int destinationId)
         {
-            return DBAccess.getInstance().execNonQuery("delete from Destination where destinationId = " + destinationId + ";"); ;
+            return DBAccess.getInstance().execNonQuery("delete from " + table + " where destinationId = " + destinationId + ";"); ;
         }
 
         public int insertDestination(Destination destination)
         {
-            return DBAccess.getInstance().execNonQuery("insert into Destination (destinationId, continent, pays, region, description) values ('" +
+            return DBAccess.getInstance().execNonQuery("insert into " + table + " (destinationId, continent, pays, region, description) values ('" +
                                                                                  destination.DestinationId + "', '" +
                                                                                  destination.Continent + "', '" +
                                                                                  destination.Pays + "', '" +

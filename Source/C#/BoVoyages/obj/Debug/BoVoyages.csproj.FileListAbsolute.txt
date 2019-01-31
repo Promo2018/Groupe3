@@ -26,3 +26,10 @@ C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.csp
 C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
 C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.exe
 C:\Users\Adminl\Desktop\Copie BoVoyages Damian\BoVoyages\obj\Debug\BoVoyages.pdb
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\bin\Debug\BoVoyages.exe.config
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\bin\Debug\BoVoyages.exe
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\bin\Debug\BoVoyages.pdb
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\obj\Debug\BoVoyages.csprojAssemblyReference.cache
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\obj\Debug\BoVoyages.csproj.CoreCompileInputs.cache
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\obj\Debug\BoVoyages.exe
+C:\Users\Adminl\source\repos\TP2RD\Source\C#\BoVoyages\obj\Debug\BoVoyages.pdb
