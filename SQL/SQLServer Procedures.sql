@@ -18,6 +18,7 @@ create view aParticipant as
 select Participants.participantId, Personnes.civilite, Personnes.nom, Personnes.prenom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
 from Participants, Personnes where Participants.personneId = Personnes.personneId;
 
+update aParticipant set reduction = 0.6  where dateNaissance > '2007-01-31';
 
 -- Join to select all DossierReservations for a particular Participant.
 create view DossiersReservationPourParticipant as 

@@ -65,7 +65,7 @@ namespace BoVoyages.Model
         public List<DossierReservation> getDossiersForParticipant(int participantId)
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
-            string selectString = "select * from DossierReservationPourParticipant where participantId = " + participantId + ";";
+            string selectString = "select * from DossiersReservationPourParticipant where participantId = " + participantId + ";";
             DataSet ds = DBAccess.getInstance().execSelect(selectString);
             DossierReservation_db dossier = new DossierReservation_db();
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)

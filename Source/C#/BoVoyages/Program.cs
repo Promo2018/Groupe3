@@ -16,10 +16,11 @@ namespace BoVoyages
         static void Main(string[] args)
         {
             System.Console.WriteLine("BoVoyages : Bienvenue.");
-            List<Model.DossierReservation> drs = new Model.DossierReservation().getDossiers();
-            foreach (Model.DossierReservation dr in drs)
+            List<Model.Participant> drs = new Model.Participant().getParticipants();
+            foreach (Model.Participant dr in drs)
             {
-                System.Console.WriteLine(dr.ToString());
+                if(dr.Age() < 12)
+                    System.Console.WriteLine(dr.ToString());
             }
 
             //            System.Console.WriteLine("BoVoyages : Inserting new Client");

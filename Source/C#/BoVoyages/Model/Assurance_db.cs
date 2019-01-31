@@ -51,7 +51,7 @@ namespace BoVoyages.Model
         public List<DossierReservation> getDossiersForAssurance(int assuranceId)
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
-            string selectString = "select * from DossierReservationPourAssurance where assuranceId = " + assuranceId + ";";
+            string selectString = "select * from DossiersReservationPourAssurance where assuranceId = " + assuranceId + ";";
             DataSet ds = DBAccess.getInstance().execSelect(selectString);
             DossierReservation_db dossier = new DossierReservation_db();
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)

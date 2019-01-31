@@ -54,7 +54,7 @@ namespace BoVoyages.Model
         public List<Participant> getParticipantsForDossier(int dossierId)
         {
             List<Participant> participants = new List<Participant>();
-            string selectString = "select * from ParticipantPourDossierReservation where dossierId = " + dossierId + ";";
+            string selectString = "select * from ParticipantsPourDossierReservation where dossierId = " + dossierId + ";";
             DataSet ds = DBAccess.getInstance().execSelect(selectString);
             Participant_db participant = new Participant_db();
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
@@ -67,7 +67,7 @@ namespace BoVoyages.Model
         public List<Assurance> getAssurancesForDossier(int dossierId)
         {
             List<Assurance> assurances = new List<Assurance>();
-            string selectString = "select * from AssurancePourDossierReservation where dossierId = " + dossierId + ";";
+            string selectString = "select * from AssurancesPourDossierReservation where dossierId = " + dossierId + ";";
             DataSet ds = DBAccess.getInstance().execSelect(selectString);
             Assurance_db assurance = new Assurance_db();
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
