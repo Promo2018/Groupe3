@@ -17,7 +17,7 @@ namespace BoVoyages.Model
 
         public Client getClient(int clientId)
         {
-            Client client = new Client();
+            Client client = null;
             DataSet ds = DBAccess.getInstance().execSelect("select * from " + table + " where ClientId = " + clientId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
@@ -82,5 +82,11 @@ namespace BoVoyages.Model
             id = getLastIdentityId();
             return id;
         }
+
+        public bool exists(int clientId)
+        {
+            return (getClient(clientId) != null);
+        }
+
     }
 }

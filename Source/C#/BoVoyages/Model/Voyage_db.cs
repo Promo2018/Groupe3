@@ -16,7 +16,7 @@ namespace BoVoyages.Model
 
         public Voyage getVoyage(int voyageId)
         {
-            Voyage voyage = new Voyage();
+            Voyage voyage = null;
             DataSet ds = DBAccess.getInstance().execSelect("select * from " + view + " where voyageId = " + voyageId + " order by dateAller;");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
@@ -91,6 +91,16 @@ namespace BoVoyages.Model
         public void deleteVoyagesPerimes()
         {
             DBAccess.getInstance().execProcedure("deleteVoyagesPerimes");
+        }
+
+        public bool arePlacesAvailable(int voyageId, int places)
+        {
+            return (getVoyage(voyageId).PlacesDisponible >= places);
+        }
+
+        public bool exists(int voyageId)
+        {
+            return (getVoyage(voyageId) != null);
         }
 
     }

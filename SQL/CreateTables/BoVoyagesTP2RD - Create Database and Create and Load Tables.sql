@@ -6682,7 +6682,7 @@ go
 
 -- Select all Participants for a particular DossierReservation.
 create view ParticipantsPourDossierReservation as 
-select Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
+select DossiersReservation.dossierId, Participants.participantId, Personnes.civilite, Personnes.prenom, Personnes.nom, Personnes.adresse, Personnes.telephone, Personnes.dateNaissance, Participants.reduction 
 from Participants, Personnes, DossiersParticipants, DossiersReservation
 where Participants.personneId = Personnes.personneId and 
 DossiersParticipants.participantId = Participants.participantId and 

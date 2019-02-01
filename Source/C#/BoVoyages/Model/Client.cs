@@ -9,7 +9,7 @@ namespace BoVoyages.Model
 {
     public class Client : Personne
     {
-        private Client_db client_Db = new Client_db();
+        private Client_db client_db = new Client_db();
         private int clientId;
         private string email;
 
@@ -33,42 +33,47 @@ namespace BoVoyages.Model
 
         public override void startTransaction()
         {
-            client_Db.startTransaction();
+            client_db.startTransaction();
         }
 
         public override int endTransaction(bool commit)
         {
-            return client_Db.endTransaction(commit);
+            return client_db.endTransaction(commit);
         }
 
         public Client getClient(int clientId)
         {
-            return client_Db.getClient(clientId);
+            return client_db.getClient(clientId);
         }
 
         public List<Client> getClients(string key, string value)
         {
-            return client_Db.getClients(key, value);
+            return client_db.getClients(key, value);
         }
 
         public List<Client> getClients()
         {
-            return client_Db.getClients();
+            return client_db.getClients();
         }
 
         public int updateClient(string change, string condition)
         {
-            return client_Db.updateClient(change, condition);
+            return client_db.updateClient(change, condition);
         }
 
         public int deleteClient(int clientId)
         {
-            return client_Db.deleteClient(clientId);
+            return client_db.deleteClient(clientId);
         }
 
         public int insertClient(Client client)
         {
-            return client_Db.insertClient(client);
+            return client_db.insertClient(client);
+        }
+
+        public bool exists(int clientId)
+        {
+            return client_db.exists(clientId);
         }
 
         public override string ToString()

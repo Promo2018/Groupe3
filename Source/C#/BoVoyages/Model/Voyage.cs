@@ -81,8 +81,12 @@ namespace BoVoyages.Model
 
         public bool arePlacesAvailable(int voyageId, int places)
         {
-            bool available = true;
-            return available;
+            return voyage_db.arePlacesAvailable(voyageId, places);
+        }
+
+        public bool exists(int voyageId)
+        {
+            return voyage_db.exists(voyageId);
         }
 
         public override string ToString()
