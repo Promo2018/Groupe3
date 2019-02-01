@@ -6744,12 +6744,12 @@ as
 DECLARE @clientmail nvarchar(32);
 SET @clientmail = (select email from viewstatus where dossierId = @iddossier);
 update DossiersReservation set etatDossierReservation = 'ACCEPTEE' where dossierId = @iddossier;
-Print concat ('dossier acceptee. Informer client : ', @clientmail);
+Print concat ('Dossier acceptee. Informer client : ', @clientmail);
 go
 
 
 --Procedure for annulation par client. 
-create procedure annulerClient
+create procedure annulerParClient
 @iddossier int
 as
 update DossiersReservation set raisonAnnulationDossier = 'CLIENT' where dossierId = @iddossier;
@@ -6763,15 +6763,31 @@ create procedure annulerNoPlaces
 as
 DECLARE @clientmail nvarchar(32);
 SET @clientmail = (select email from viewstatus where dossierId = @iddossier);
-update DossiersReservation set raisonAnnulationDossier = 'placesInsuffisantes' where dossierId = @iddossier;
-Print concat ('dossier annule. Informer client places insuffisantes : ', @clientmail);
+update DossiersReservation set raisonAnnulationDossier = 'PLACESINSUFFISANTES',etatDossierReservation = 'REFUSEE' where dossierId = @iddossier;
+Print concat ('Dossier annule. Informer client places insuffisantes : ', @clientmail);
 go
 
 
 --To delete expired voyages. Expired as of the date of today.
-create procedure voyagesPerimes
+create procedure deleteVoyagesPerimes
 as
 DECLARE @today date
 SET @today = getdate();
 delete from voyages where dateAller < @today;
 go
+
+
+--To delete Finished voyages. Finished as of the date of today. Deletion includes participants and voyages.
+create procedure deleteDossierVoyageEffectue
+as
+DECLARE @today date
+SET @today = getdate();
+delete from voyages where dateRetour < @today;
+go
+
+--To delete Cancelled. Cancelled by client or NoPlaces.
+create procedure deleteDossiersAnnules
+as
+delete from DossiersReservation where raisonAnnulationDossier = 'CLIENT' or raisonAnnulationDossier = 'PLACESINSUFFISANTES';
+go
+
