@@ -6735,6 +6735,31 @@ update DossiersReservation set etatDossierReservation = 'ACCEPTEE' where dossier
 Print concat ('Dossier acceptee. Informer client : ', @clientmail);
 go
 
+--Procedure for annulation 
+create procedure annuler
+@iddossier int,
+@raison nvarchar (32)
+as
+update DossiersReservation set raisonAnnulationDossier = @raison where dossierId = @iddossier;
+go
+
+--Procedure for annulation 
+create procedure annulerDossier
+@iddossier int,
+@raison nvarchar(32)
+as
+if @raison = 'PLACESINSUFFISANTES'
+	begin 
+		update DossiersReservation set raisonAnnulationDossier = @raison, etatDossierReservation = 'REFUSEE' where dossierId = @iddossier;
+	end
+
+else
+	begin
+		update DossiersReservation set raisonAnnulationDossier = @raison where dossierId = @iddossier;
+	end
+
+go
+
 
 --Procedure for annulation par client. 
 create procedure annulerParClient
@@ -6773,9 +6798,17 @@ SET @today = getdate();
 delete from voyages where dateRetour < @today;
 go
 
---To delete Cancelled. Cancelled by client or NoPlaces.
+--To delete Cancelled dossiers. Cancelled by client or NoPlaces.
 create procedure deleteDossiersAnnules
 as
 delete from DossiersReservation where raisonAnnulationDossier = 'CLIENT' or raisonAnnulationDossier = 'PLACESINSUFFISANTES';
 go
+
+--To delete a dossier
+create procedure deleteDossier
+@iddossier int
+as
+delete from DossiersReservation where dossierId = @iddossier;
+go
+
 
