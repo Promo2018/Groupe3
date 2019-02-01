@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
-    public class DossierReservation
+    public class DossierReservation : Table
     {
         private DossierReservation_db dossier_Db = new DossierReservation_db();
 
@@ -39,6 +39,16 @@ namespace BoVoyages.Model
         public string NumeroCarteBancaire { get => numeroCarteBancaire; set => numeroCarteBancaire = value; }
         public int ClientId { get => clientId; set => clientId = value; }
         public int VoyageId { get => voyageId; set => voyageId = value; }
+
+        public override void startTransaction()
+        {
+            dossier_Db.startTransaction();
+        }
+
+        public override void endTransaction(bool commit)
+        {
+            dossier_Db.endTransaction(commit);
+        }
 
         public DossierReservation getDossier(int dossierId)
         {

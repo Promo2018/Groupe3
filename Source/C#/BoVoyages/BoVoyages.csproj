@@ -65,6 +65,8 @@
     <Compile Include="Model\Properties.cs" />
     <Compile Include="Model\AgenceVoyage.cs" />
     <Compile Include="Model\RaisonAnnulationDossier.cs" />
+    <Compile Include="Model\Table.cs" />
+    <Compile Include="Model\Table_db.cs" />
     <Compile Include="Model\Voyage.cs" />
     <Compile Include="Model\Voyage_db.cs" />
     <Compile Include="View\MenuCommercial.cs" />

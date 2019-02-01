@@ -117,5 +117,17 @@ namespace BoVoyages.Model
 
         }
 
+        public int getLastIdentityId()
+        {
+            int id = -1;
+            DataSet ds = DBAccess.getInstance().execSelect("SELECT SCOPE_IDENTITY() as id;");
+            foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
+            {
+                id = int.Parse(row["id"].ToString());
+            }
+
+            return id;
+        }
+
     }
 }

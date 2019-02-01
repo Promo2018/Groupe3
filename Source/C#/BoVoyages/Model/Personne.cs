@@ -33,6 +33,7 @@ namespace BoVoyages.Model
         public string Adresse { get => adresse; set => adresse = value; }
         public string Telephone { get => telephone; set => telephone = value; }
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
+
         public int Age()
         {
             return  DateTime.Today.Year - dateNaissance.Year;

@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class DossierReservation_db
+    class DossierReservation_db :Table_db
     {
         private string table = "DossiersReservation";
 
@@ -111,5 +111,6 @@ namespace BoVoyages.Model
                                                                                         dossier.ClientId + ", " +
                                                                                         dossier.VoyageId + ");");
         }
+
     }
 }

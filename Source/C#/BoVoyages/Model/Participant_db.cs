@@ -117,7 +117,7 @@ namespace BoVoyages.Model
             DBAccess.getInstance().execNonQuery("insert into Participants (reduction, personneId) values (" +
                                                                            participant.Reduction + ", " +
                                                                            id + ");");
-            id = getLastIdentityId();
+            id = DBAccess.getInstance().getLastIdentityId();
             return id;
         }
 
