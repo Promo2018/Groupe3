@@ -45,9 +45,9 @@ namespace BoVoyages.Model
             dossier_Db.startTransaction();
         }
 
-        public override void endTransaction(bool commit)
+        public override int endTransaction(bool commit)
         {
-            dossier_Db.endTransaction(commit);
+            return dossier_Db.endTransaction(commit);
         }
 
         public DossierReservation getDossier(int dossierId)
@@ -93,6 +93,48 @@ namespace BoVoyages.Model
         public int insertDossier(DossierReservation dossier)
         {
             return dossier_Db.insertDossier(dossier);
+        }
+
+        public void insertDossierParticipants(int rId, List<int> participandIds)
+        {
+            dossier_Db.insertDossierParticipants(rId, participandIds);
+        }
+
+        public void insertDossierAssurance(int dossierId, int assuranceId)
+        {
+            dossier_Db.insertDossierAssurance(dossierId, assuranceId);
+        }
+
+        public double getPrixTotal(int dossierId)
+        {
+            double prix = 0;
+            double prixVoyage = getPrixVoyage();
+            List<Participant> participants = getParticipantsForDossier(dossierId);
+            foreach(Participant participant in participants)
+            {
+                prix = (prix + (prixVoyage * (((double)participant.Reduction) / 100)));
+            }
+            return prix;
+        }
+
+        public double getPrixVoyage()
+        {
+            return dossier_Db.getPrixVoyage(voyageId);
+        }
+
+        public void annuler(int dossierId, RaisonAnnulationDossier raison)
+        {
+            dossier_Db.annuler(dossierId, raison);
+        }
+
+        public void accepter(int dossierId)
+        {
+            dossier_Db.accepter(dossierId);
+        }
+
+        public void validerSolvabilite(int dossierId)
+        {
+            dossier_Db.validerSolvabilite(dossierId);
         }
 
         public override string ToString()

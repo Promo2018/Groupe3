@@ -49,6 +49,7 @@ namespace BoVoyages.View
             else if (sel == 3)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Supprimer un Voyage Reservation");
+                voyage.deleteReservation(this);
             }
             else if (sel == 0)
             {

@@ -31,6 +31,16 @@ namespace BoVoyages.Model
         public int ClientId { get => clientId; set => clientId = value; }
         public string Email { get => email; set => email = value; }
 
+        public override void startTransaction()
+        {
+            client_Db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return client_Db.endTransaction(commit);
+        }
+
         public Client getClient(int clientId)
         {
             return client_Db.getClient(clientId);

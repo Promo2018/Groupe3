@@ -30,6 +30,16 @@ namespace BoVoyages.Model
         public int ParticipantId { get => participantId; set => participantId = value; }
         public int Reduction { get => reduction; set => reduction = value; }
 
+        public override void startTransaction()
+        {
+            participant_Db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return participant_Db.endTransaction(commit);
+        }
+
         public Participant getParticipant(int participantId)
         {
             return participant_Db.getParticipant(participantId);

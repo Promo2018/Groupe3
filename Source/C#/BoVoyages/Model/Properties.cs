@@ -14,6 +14,7 @@ namespace BoVoyages.Model
         // XML Property keys
         public static readonly string HOST = "Host";
         public static readonly string DATABASE = "Database";
+        public static readonly string ASSURANCETARIF = "AssuranceTarif";
 
         private string propertyFile = "../../Properties/BoVoyages.xml";
         private List<string> keys = new List<string>();
@@ -39,6 +40,13 @@ namespace BoVoyages.Model
                             if (reader.Read())
                             {
                                 keys.Add(HOST);
+                                values.Add(reader.Value.Trim());
+                            }
+                        } else if (reader.Name == ASSURANCETARIF)
+                        {
+                            if (reader.Read())
+                            {
+                                keys.Add(ASSURANCETARIF);
                                 values.Add(reader.Value.Trim());
                             }
                         }

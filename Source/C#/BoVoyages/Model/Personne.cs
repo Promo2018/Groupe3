@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
-    public class Personne
+    public abstract class Personne : Table
     {
         private string civilite;
         private string nom;

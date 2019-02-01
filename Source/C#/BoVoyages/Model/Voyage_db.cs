@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class Voyage_db
+    class Voyage_db : Table_db
     {
         private const string table = "Voyages";
         private const string view = "allVoyages";
@@ -78,14 +78,19 @@ namespace BoVoyages.Model
 
         public int insertVoyage(Voyage voyage)
         {
-            return DBAccess.getInstance().execNonQuery("insert into " + table + " (voyageId, dateAller, dateRetour, placesDisponible, tarifToutCompris, destinationId, agenceId) values ('" +
-                                                                            voyage.VoyageId + "', '" +
+            DBAccess.getInstance().execNonQuery("insert into " + table + " (dateAller, dateRetour, placesDisponible, tarifToutCompris, destinationId, agenceId) values ('" +
                                                                             voyage.DateAller.ToShortDateString() + "', '" +
                                                                             voyage.DateRetour.ToShortDateString() + "', '" +
                                                                             voyage.PlacesDisponible + "', '" +
                                                                             voyage.TarifToutCompris + "', '" +
                                                                             voyage.Destination.DestinationId + "', '" +
                                                                             voyage.Agence.AgenceId + ");");
+            return getLastIdentityId();
+        }
+
+        public void deleteVoyagesPerimes()
+        {
+            DBAccess.getInstance().execProcedure("deleteVoyagesPerimes");
         }
 
     }

@@ -104,12 +104,88 @@ namespace BoVoyages.Model
 
         public int insertDossier(DossierReservation dossier)
         {
-            return DBAccess.getInstance().execNonQuery("insert into " + table + " (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
-                                                                                        dossier.EtatReservation.ToString() + "', '" +
-                                                                                        dossier.RaisonAnnulation.ToString() + "', '" +
-                                                                                        dossier.NumeroCarteBancaire + "', " +
-                                                                                        dossier.ClientId + ", " +
-                                                                                        dossier.VoyageId + ");");
+            DBAccess.getInstance().execNonQuery("insert into " + table + " (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
+                                                                            dossier.EtatReservation.ToString() + "', '" +
+                                                                            dossier.RaisonAnnulation.ToString() + "', '" +
+                                                                            dossier.NumeroCarteBancaire + "', " +
+                                                                            dossier.ClientId + ", " +
+                                                                            dossier.VoyageId + ");");
+            return getLastIdentityId();
+        }
+
+        public void insertDossierParticipants(int dossierId, List<int>  participandIds)
+        {
+            foreach(int participantId in  participandIds)
+            {
+                DBAccess.getInstance().execNonQuery("insert into DossiersParticipants (dossierId, participantId) values (" +
+                                                                                       dossierId + ", " +
+                                                                                       participantId + ");");
+            }
+
+        }
+
+        public void insertDossierAssurance(int dossierId, int assuranceId)
+        {
+            DBAccess.getInstance().execNonQuery("insert into AssurancesDossiers (dossierId, assuranceId) values (" +
+                                                                                 dossierId + ", " +
+                                                                                 assuranceId + ");");
+        }
+
+        public double getPrixVoyage(int voyageId)
+        {
+            double prixVoyage = 0;
+            DataSet ds = DBAccess.getInstance().execSelect("select tarifToutCompris from voyages where voyageId = " + voyageId + ";");
+            foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
+            {
+                prixVoyage = double.Parse(row["tarifToutCompris"].ToString());
+            }
+            if(doesDossierHaveAssurance())
+            {
+                prixVoyage = prixVoyage + (prixVoyage * new Assurance().getPrixAssurancePourcentage());
+            }
+            return prixVoyage;
+        }
+
+        private bool doesDossierHaveAssurance()
+        {
+            bool doesDossierHaveAssurance = false;
+            DataSet ds = DBAccess.getInstance().execSelect("select * from AssurancesDossiers where dossierId = 9199");
+            foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
+            {
+                doesDossierHaveAssurance = true;
+            }
+            return doesDossierHaveAssurance;
+        }
+
+        public void annuler(int dossierId, RaisonAnnulationDossier raison)
+        {
+            string[] parms = new string[2];
+            parms[0] = dossierId.ToString();
+            parms[1] = raison.getRaisonAnnulationDossier();
+            DBAccess.getInstance().execProcedureWithParams("annulerDossier", parms);
+        }
+
+        public void accepter(int dossierId)
+        {
+            string[] parms = new string[1];
+            parms[0] = dossierId.ToString();
+            DBAccess.getInstance().execProcedureWithParams("accepterDossier", parms);
+        }
+
+        public void validerSolvabilite(int dossierId)
+        {
+            if(isClientSolvable())
+            {
+                accepter(dossierId);
+            } else
+            {
+                deleteDossier(dossierId);
+            }
+        }
+
+        private bool isClientSolvable()
+        {
+            return (System.DateTime.Now.Millisecond % 2 == 0);
         }
 
     }

@@ -14,18 +14,9 @@ namespace BoVoyages.Controller
     {
         //Afficher une liste de tous les clients
 
-        public bool listerClients()
+        public void listerClients()
         {
-            bool genererOk = false;
-/*            string[] listeClient = Client.getClients();
-
-            //Vérification ligne par ligne
-            foreach (string line in listeClient)
-            {
-                Console.WriteLine(line);
-
-            } */
-            return genererOk;
+            Console.WriteLine(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
         }
 
         //Afficher seulement les clients demandés, en fonction d'une entrée et dans une colonne au choix

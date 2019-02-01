@@ -7,7 +7,7 @@ using System.IO;
 
 namespace BoVoyages.Model
 {
-    public class Voyage
+    public class Voyage : Table
     {
         private Voyage_db voyage_db = new Voyage_db();
         private int voyageId;
@@ -38,6 +38,16 @@ namespace BoVoyages.Model
         public float TarifToutCompris { get => tarifToutCompris; set => tarifToutCompris = value; }
         public Destination Destination { get => destination; set => destination = value; }
         public AgenceVoyage Agence { get => agence; set => agence = value; }
+
+        public override void startTransaction()
+        {
+            voyage_db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return voyage_db.endTransaction(commit);
+        }
 
         public Voyage getVoyage(int voyageId)
         {
@@ -86,6 +96,11 @@ namespace BoVoyages.Model
             outString += "TarifToutCompris = " + TarifToutCompris + "\n";
 
             return outString;
+        }
+
+        public void deleteVoyagesPerimes()
+        {
+            voyage_db.deleteVoyagesPerimes();
         }
 
     }

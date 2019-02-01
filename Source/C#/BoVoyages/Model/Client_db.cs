@@ -79,7 +79,7 @@ namespace BoVoyages.Model
             DBAccess.getInstance().execNonQuery("insert into Clients (email, personneId) values ('" +
                                                                              client.Email + "', " +
                                                                              id + ");");
-            id = DBAccess.getInstance().getLastIdentityId();
+            id = getLastIdentityId();
             return id;
         }
     }

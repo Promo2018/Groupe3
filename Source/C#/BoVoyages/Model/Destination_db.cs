@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class Destination_db
+    class Destination_db : Table_db
     {
         private string table = "Destinations";
 

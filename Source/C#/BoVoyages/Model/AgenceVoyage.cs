@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
-    public class AgenceVoyage
+    public class AgenceVoyage : Table
     {
         private AgenceVoyage_db agenceVoyage_db = new AgenceVoyage_db();
         private int agenceId;
@@ -22,6 +22,16 @@ namespace BoVoyages.Model
 
         public int AgenceId { get => agenceId; set => agenceId = value; }
         public string Nom { get => nom; set => nom = value; }
+
+        public override void startTransaction()
+        {
+            agenceVoyage_db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return agenceVoyage_db.endTransaction(commit);
+        }
 
         public AgenceVoyage getAgenceVoyage(int agenceId)
         {

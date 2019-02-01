@@ -34,15 +34,10 @@ namespace BoVoyages.Controller
             //Voyage.setVoyages(voyages.ToArray());
         }
 
-        public void supprimerVoyagesExpires()
+        public void deleteVoyagesPerimes()
         {
-            for(int i = 0; i < voyages.Count; i++ )
-            {
-                if(getDateDebut(voyages[i]) < DateTime.Today)
-                {
-                    voyages.Remove(voyages[i]);
-                }
-            }
+            Model.Voyage voyage = new Model.Voyage();
+            voyage.deleteVoyagesPerimes();
         }
 
         private DateTime getDateDebut(string line)

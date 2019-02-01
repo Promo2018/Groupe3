@@ -104,6 +104,37 @@ namespace BoVoyages.Model
             return ret;
         }
 
+        public int execProcedureWithParams(String procedure, String[] parms)
+        {
+            int lignes = -1;
+            if (parms.Length == 0)
+            {
+                lignes = execProcedure(procedure);
+            }
+            else
+            {
+                SqlParameter par;
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = procedure;
+                    cmd.Connection = connection;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    for (int i = 0; i < parms.Length; i = i + 2)
+                    {
+                        par = cmd.Parameters.AddWithValue('@' + parms[i], parms[i + 1]);
+                    }
+                    lignes = cmd.ExecuteNonQuery();
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine("Exeception caught :" + e.Message);
+                }
+            }
+            return lignes;
+        }
+
         public void close()
         {
             try
@@ -115,18 +146,6 @@ namespace BoVoyages.Model
                 Console.WriteLine("Exeception caught :" + e.Message);
             }
 
-        }
-
-        public int getLastIdentityId()
-        {
-            int id = -1;
-            DataSet ds = DBAccess.getInstance().execSelect("SELECT SCOPE_IDENTITY() as id;");
-            foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
-            {
-                id = int.Parse(row["id"].ToString());
-            }
-
-            return id;
         }
 
     }

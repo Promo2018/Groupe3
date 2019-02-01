@@ -7,7 +7,7 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
-    class Assurance_db
+    class Assurance_db : Table_db
     {
         private string table = "Assurances";
 
@@ -112,6 +112,14 @@ namespace BoVoyages.Model
                                                                                assurance.Type.ToString() + "', '" +
                                                                                assurance.Nom + "', '" +
                                                                                assurance.Description + ");");
+        }
+
+        public double getPrixAssurancePourcentage()
+        {
+            double pourcentage = 0;
+            string assuranceTarif = Properties.getInstance().getProperty(Properties.ASSURANCETARIF);
+            pourcentage = double.Parse(assuranceTarif.Substring(0, assuranceTarif.Length - 1)) / 100; 
+            return pourcentage;
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
-    public class Assurance
+    public class Assurance : Table
     {
         public const string ANNULATION = "ANNULATION";
         public const string BAGGAGE = "BAGGAGE";
@@ -33,6 +33,16 @@ namespace BoVoyages.Model
         public ASSURANCE_TYPE Type { get => type; set => type = value; }
         public string Nom { get => nom; set => nom = value; }
         public string Description { get => description; set => description = value; }
+
+        public override void startTransaction()
+        {
+            assurance_db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return assurance_db.endTransaction(commit);
+        }
 
         public Assurance getAssurance(int assuranceId)
         {
@@ -67,6 +77,11 @@ namespace BoVoyages.Model
         public int insertAssurance(Assurance assurance)
         {
             return assurance_db.insertAssurance(assurance);
+        }
+
+        public double getPrixAssurancePourcentage()
+        {
+            return assurance_db.getPrixAssurancePourcentage();
         }
 
         public override string ToString()

@@ -45,6 +45,13 @@ namespace BoVoyages.View
             Console.WriteLine(displayString);
         }
 
+        public void displayFinal(string displayString)
+        {
+            Console.WriteLine("**********************************************************************************");
+            Console.WriteLine("==>   " + displayString);
+            Console.WriteLine("**********************************************************************************");
+        }
+
         public string readString()
         {
             return Console.ReadLine();

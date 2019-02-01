@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
-    public class Destination
+    public class Destination : Table
     {
         private Destination_db destination_db = new Destination_db();
         private int destinationId;
@@ -31,6 +31,16 @@ namespace BoVoyages.Model
         public string Pays { get => pays; set => pays = value; }
         public string Region { get => region; set => region = value; }
         public string Description { get => description; set => description = value; }
+
+        public override void startTransaction()
+        {
+            destination_db.startTransaction();
+        }
+
+        public override int endTransaction(bool commit)
+        {
+            return destination_db.endTransaction(commit);
+        }
 
         public Destination getDestination(int destinationId)
         {
