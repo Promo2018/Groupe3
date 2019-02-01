@@ -18,4 +18,14 @@ Installation :
 	Coipier le contenu du script BoVoyagesTP2RD - Create Database and Create and Load Tables.sql sur Microsift Server Management Tools.
 	Le script installera a la fois la base de donnees, le vues, et le procedures stockees.
 
-2)
+2) Execution sur C# 
+	Lancer l'application BoVoyages.exe qui se trouve dans RyanDamian > Source > C# > BoVoyages > Bin > Debug
+	
+
+L'application se presente en cascade de menus decrit ci-dessous :
+
+.....
+
+
+Fichiers joint :
+Diagramme relationelle de base de donnees : SGBDR.JPG
