@@ -7,8 +7,13 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Base class for all Clients and Participants.
+     */
+
     class Personne_db : Table_db
     {
+        // Insert a Personnes object to the database.
         public int insertPersonne(Personne personne)
         {
             int id = -1;

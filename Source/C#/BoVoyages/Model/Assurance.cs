@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public class Assurance : Table
     {
+        // enum for the type of Assurance and the possible values.
         public const string ANNULATION = "ANNULATION";
         public const string BAGGAGE = "BAGGAGE";
         public const string RAPATRIEMENT = "RAPATRIEMENT";
@@ -84,6 +90,7 @@ namespace BoVoyages.Model
             return assurance_db.getPrixAssurancePourcentage();
         }
 
+        // ToString method for debug purposes.
         public override string ToString()
         {
             string ass = "";

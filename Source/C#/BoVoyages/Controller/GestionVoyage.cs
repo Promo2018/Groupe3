@@ -4,48 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BoVoyages.Model;
+using BoVoyages.View;
 
 namespace BoVoyages.Controller
 {
+    /**
+     * Class to manage all aspects of voyages.
+     */
+
     public class GestionVoyage
     {
-        private List<string> voyages = new List<string>();
+        public GestionVoyage() {}
 
-        public GestionVoyage()
+        // Add Voyages.
+        // Not yet implemented.
+        public void addVoyages(Menu menu)
         {
-            //voyages = Voyage.getVoyages().ToList();
+            menu.display(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
         }
 
-        public void listVoyages()
+        // Delete expired Voyages.
+        public void deleteVoyagesPerimes(Menu menu)
         {
-            foreach (string line in voyages)
-            {
-                System.Console.WriteLine(line);
-            }
+            new Model.Voyage().deleteVoyagesPerimes();
         }
 
-        public void ajouterVoyages()
-        {
-            System.Console.WriteLine(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
-        }
-
-        public void enregistrer()
-        {
-            //Voyage.setVoyages(voyages.ToArray());
-        }
-
-        public void deleteVoyagesPerimes()
-        {
-            Model.Voyage voyage = new Model.Voyage();
-            voyage.deleteVoyagesPerimes();
-        }
-
-        private DateTime getDateDebut(string line)
-        {
-            DateTime dateDebut;
-            string[] values = line.Split(',');
-            dateDebut = DateTime.Parse(values[2]);
-            return dateDebut;
-        }
     }
 }

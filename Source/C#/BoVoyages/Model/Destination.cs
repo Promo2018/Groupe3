@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public class Destination : Table
     {
         private Destination_db destination_db = new Destination_db();

@@ -7,6 +7,10 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
+    /**
+     * This class provides uses the DBAccess instance to select, update, delete and insert to the DossiersReservation database table.
+     */
+
     class DossierReservation_db :Table_db
     {
         private string table = "DossiersReservation";
@@ -15,6 +19,7 @@ namespace BoVoyages.Model
         {
         }
 
+        // Get the DossiersReservation information for a particular dossierId
         public DossierReservation getDossier(int dossierId)
         {
             DossierReservation dossier = new DossierReservation();
@@ -27,6 +32,7 @@ namespace BoVoyages.Model
             return dossier;
         }
 
+        // Get a list of the DossiersReservation with where key=value
         public List<DossierReservation> getDossiers(string key, string value)
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
@@ -39,6 +45,7 @@ namespace BoVoyages.Model
             return dossiers;
         }
 
+        // Get a list of all the DossiersReservation.
         public List<DossierReservation> getDossiers()
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
@@ -51,6 +58,7 @@ namespace BoVoyages.Model
             return dossiers;
         }
 
+        // Get a list of all Participants in a DossiersReservation with a particular dossierId
         public List<Participant> getParticipantsForDossier(int dossierId)
         {
             List<Participant> participants = new List<Participant>();
@@ -64,6 +72,7 @@ namespace BoVoyages.Model
             return participants;
         }
 
+        // Get a list of all Assurances objects in a DossiersReservation with a particular dossierId
         public List<Assurance> getAssurancesForDossier(int dossierId)
         {
             List<Assurance> assurances = new List<Assurance>();
@@ -77,6 +86,7 @@ namespace BoVoyages.Model
             return assurances;
         }
 
+        // Parse an DossiersReservation from a data row.
         public DossierReservation getDossier(DataRow row)
         {
             return new DossierReservation(int.Parse(row["dossierId"].ToString()),
@@ -87,21 +97,25 @@ namespace BoVoyages.Model
                                           int.Parse(row["voyageId"].ToString()));
         }
 
+        // Update a DossiersReservation object using the parameters change and condition.
         public int updateDossier(string change, string condition)
         {
             return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
+        // Delete a DossiersReservation object with a particular id.
         public int deleteDossier(int dossierId)
         {
             return DBAccess.getInstance().execNonQuery("delete from " + table + " where dossierId = " + dossierId + ";");
         }
 
+        // Delete a DossiersReservation object with a particular clientId.
         public int deleteDossiersForClient(int clientId)
         {
             return DBAccess.getInstance().execNonQuery("delete from DossierReservation where clientId = " + clientId + ";");
         }
 
+        // Insert a new DossiersReservation object to the database table.
         public int insertDossier(DossierReservation dossier)
         {
             DBAccess.getInstance().execNonQuery("insert into " + table + " (etatDossierReservation, raisonAnnulationDossier, numeroCarteBancaire, clientId, voyageId) values ('" +
@@ -113,6 +127,7 @@ namespace BoVoyages.Model
             return getLastIdentityId();
         }
 
+        // Insert a new DossiersParticipants object to the database table.
         public void insertDossierParticipants(int dossierId, List<int>  participandIds)
         {
             foreach(int participantId in  participandIds)
@@ -124,6 +139,7 @@ namespace BoVoyages.Model
 
         }
 
+        // Insert a new AssurancesDossiers object to the database table.
         public void insertDossierAssurance(int dossierId, int assuranceId)
         {
             DBAccess.getInstance().execNonQuery("insert into AssurancesDossiers (dossierId, assuranceId) values (" +
@@ -131,7 +147,8 @@ namespace BoVoyages.Model
                                                                                  assuranceId + ");");
         }
 
-        public double getPrixVoyage(int voyageId)
+        // Calculate the price of a voyage per participant, including assurance if requested.
+        public double getPrixVoyage(int voyageId, int dossierId)
         {
             double prixVoyage = 0;
             DataSet ds = DBAccess.getInstance().execSelect("select tarifToutCompris from voyages where voyageId = " + voyageId + ";");
@@ -139,17 +156,18 @@ namespace BoVoyages.Model
             {
                 prixVoyage = double.Parse(row["tarifToutCompris"].ToString());
             }
-            if(doesDossierHaveAssurance())
+            if(doesDossierHaveAssurance(dossierId))
             {
                 prixVoyage = prixVoyage + (prixVoyage * new Assurance().getPrixAssurancePourcentage());
             }
             return prixVoyage;
         }
 
-        private bool doesDossierHaveAssurance()
+        // Returns true if the DossiersReservation with the provided dossierId has Assurances.
+        private bool doesDossierHaveAssurance(int dossierId)
         {
             bool doesDossierHaveAssurance = false;
-            DataSet ds = DBAccess.getInstance().execSelect("select * from AssurancesDossiers where dossierId = 9199");
+            DataSet ds = DBAccess.getInstance().execSelect("select * from AssurancesDossiers where dossierId = " + dossierId + ";");
             foreach (DataRow row in ds.Tables[DBAccess.SELECT_RESULT].Rows)
             {
                 doesDossierHaveAssurance = true;
@@ -157,6 +175,8 @@ namespace BoVoyages.Model
             return doesDossierHaveAssurance;
         }
 
+        // Cancel a DossiersReservation with the provided dossierId with the provided reason.
+        // This method uses the stored procedure "annulerDossier".
         public void annuler(int dossierId, RaisonAnnulationDossier raison)
         {
             string[] parms = new string[2];
@@ -165,6 +185,8 @@ namespace BoVoyages.Model
             DBAccess.getInstance().execProcedureWithParams("annulerDossier", parms);
         }
 
+        // Set the status of a DossiersReservation (with the provided dossierId) to "Accepted".
+        // This method uses the stored procedure "accepterDossier".
         public void accepter(int dossierId)
         {
             string[] parms = new string[1];
@@ -172,6 +194,7 @@ namespace BoVoyages.Model
             DBAccess.getInstance().execProcedureWithParams("accepterDossier", parms);
         }
 
+        // Checks to see if the DossiersReservation (with the provided dossierId) is Solvable.
         public void validerSolvabilite(int dossierId)
         {
             if(isClientSolvable())
@@ -183,6 +206,7 @@ namespace BoVoyages.Model
             }
         }
 
+        // Method to checks solvablility. Needs to be properly implemented !
         private bool isClientSolvable()
         {
             return (System.DateTime.Now.Millisecond % 2 == 0);

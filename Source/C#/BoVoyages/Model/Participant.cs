@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public class Participant : Personne
     {
         private Participant_db participant_Db = new Participant_db();
@@ -75,6 +80,7 @@ namespace BoVoyages.Model
             return participant_Db.insertParticipant(participant);
         }
 
+        // For debug purposes.
         public override string ToString()
         {
             string part = "";

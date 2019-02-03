@@ -7,12 +7,17 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
+    /**
+     * This class provides uses the DBAccess instance to select, update, delete and insert to the Assuarnces database table.
+     */
+
     class Assurance_db : Table_db
     {
         private string table = "Assurances";
 
         public Assurance_db() {}
 
+        // Get the Assurances information for a particular assuranceId
         public Assurance getAssurance(int assuranceId)
         {
             Assurance assurance = new Assurance();
@@ -25,6 +30,7 @@ namespace BoVoyages.Model
             return assurance;
         }
 
+        // Get a list of the Assurances with where key=value
         public List<Assurance> getAssurances(string key, string value)
         {
             List<Assurance> assurances = new List<Assurance>();
@@ -37,6 +43,7 @@ namespace BoVoyages.Model
             return assurances;
         }
 
+        // Get a list of all the Assurances.
         public List<Assurance> getAssurances()
         {
             List<Assurance> assurances = new List<Assurance>();
@@ -48,6 +55,7 @@ namespace BoVoyages.Model
             return assurances;
         }
 
+        // Get a list of DossierReservation for a particular assuranceId
         public List<DossierReservation> getDossiersForAssurance(int assuranceId)
         {
             List<DossierReservation> dossiers = new List<DossierReservation>();
@@ -61,6 +69,7 @@ namespace BoVoyages.Model
             return dossiers;
         }
 
+        // Parse an Assurances from a data row.
         public Assurance getAssurance(DataRow row)
         {
             Assurance assurance = new Assurance();
@@ -95,16 +104,19 @@ namespace BoVoyages.Model
             return assurance;
         }
 
+        // Update a Assurances object using the parameters change and condition.
         public int updateAssurance(string change, string condition)
         {
             return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
+        // Delete a Assurances object with a particular id.
         public int deleteAssurance(int assuranceId)
         {
             return DBAccess.getInstance().execNonQuery("delete from " + table + " where assuranceId = " + assuranceId + ";"); ;
         }
 
+        // Insert a new Assurances object to the database table.
         public int insertAssurance(Assurance assurance)
         {
             return DBAccess.getInstance().execNonQuery("insert into " + table + " (assuranceId, type, nom, description) values ('" +
@@ -114,6 +126,7 @@ namespace BoVoyages.Model
                                                                                assurance.Description + ");");
         }
 
+        // Get the assurance tarif percentage which is used to calculate the total price of a voyage.
         public double getPrixAssurancePourcentage()
         {
             double pourcentage = 0;

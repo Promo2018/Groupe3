@@ -7,6 +7,11 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
+    /**
+     * This class provides uses the DBAccess instance to select, update, delete and insert to the allVoyages view and the Voyages database table.
+     * The allVoyages view contains information from the Voyages table and the Destinations tables.
+     */
+
     class Voyage_db : Table_db
     {
         private const string table = "Voyages";
@@ -14,6 +19,7 @@ namespace BoVoyages.Model
 
         public Voyage_db() { }
 
+        // Get the allVoyages information for a particular voyageId
         public Voyage getVoyage(int voyageId)
         {
             Voyage voyage = null;
@@ -26,6 +32,7 @@ namespace BoVoyages.Model
             return voyage;
         }
 
+        // Get a list of the allVoyages with where key=value
         public List<Voyage> getVoyages(string key, string value)
         {
             List<Voyage> voyages = new List<Voyage>();
@@ -38,6 +45,7 @@ namespace BoVoyages.Model
             return voyages;
         }
 
+        // Get a list of the allVoyages.
         public List<Voyage> getVoyages()
         {
             List<Voyage> voyages = new List<Voyage>();
@@ -49,6 +57,7 @@ namespace BoVoyages.Model
             return voyages;
         }
 
+        // Parse a allVoyages from a data row.
         Voyage getVoyage(DataRow row)
         {
             return new Voyage(int.Parse(row["voyageId"].ToString()),
@@ -66,16 +75,19 @@ namespace BoVoyages.Model
                               );
         }
 
+        // Update a Voyages object using the parameters change and condition.
         public int updateVoyage(string change, string condition)
         {
             return DBAccess.getInstance().execNonQuery("update " + table + " set " + change + " where " + condition + ";");
         }
 
+        // Delete a Voyages object with a particular id.
         public int deleteVoyage(int voyageId)
         {
             return DBAccess.getInstance().execNonQuery("delete from " + table + " where voyageId = " + voyageId + ";"); ;
         }
 
+        // Insert a new Voyages object to the database table.
         public int insertVoyage(Voyage voyage)
         {
             DBAccess.getInstance().execNonQuery("insert into " + table + " (dateAller, dateRetour, placesDisponible, tarifToutCompris, destinationId, agenceId) values ('" +
@@ -88,16 +100,20 @@ namespace BoVoyages.Model
             return getLastIdentityId();
         }
 
+        // Method to delete voyages where the start date is before today.
+        // This method uses the stored procedure "deleteVoyagesPerimes".
         public void deleteVoyagesPerimes()
         {
             DBAccess.getInstance().execProcedure("deleteVoyagesPerimes");
         }
 
+        // Checks if the number of places are available for the given voyage.
         public bool arePlacesAvailable(int voyageId, int places)
         {
             return (getVoyage(voyageId).PlacesDisponible >= places);
         }
 
+        // Returns true if the Voyage with the given Id exists.
         public bool exists(int voyageId)
         {
             return (getVoyage(voyageId) != null);

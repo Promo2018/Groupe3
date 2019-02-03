@@ -7,13 +7,20 @@ using System.Data;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Base class for all Database classes.
+     * Provides generic methods to start and end transactions and to recuperate a database created identity id after an insertion.
+     */
+
     public abstract class Table_db
     {
+        // Starts a transaction
         public void startTransaction()
         {
             DBAccess.getInstance().execNonQuery("begin transaction;");
         }
 
+        // Ends a transaction. Commit if true otherwise rollback.
         public int endTransaction(bool commit)
         {
             int rc = 0;
@@ -27,6 +34,7 @@ namespace BoVoyages.Model
             return rc;
         }
 
+        // Get the id of the last insert into a table with an identity primary key.
         public int getLastIdentityId()
         {
             int id = -1;

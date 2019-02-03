@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Base class for all Data structure classes.
+     * Provides abstract mathos for start and end transaction.
+     */
+
     public abstract class Table
     {
-        public Table_db table_db;
-
         public Table() { }
 
         public abstract void startTransaction();

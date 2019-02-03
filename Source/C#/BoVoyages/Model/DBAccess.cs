@@ -8,6 +8,11 @@ using System.Data.SqlClient;
 
 namespace BoVoyages.Model
 {
+    /**
+     * This class provides access to the database. All calls to the database go through this class
+     * This class implments the singleton design pattern, providing one instance, for all object wishing to have access to the Database.
+     */
+
     class DBAccess
     {
         private static DBAccess dbAccess = null;

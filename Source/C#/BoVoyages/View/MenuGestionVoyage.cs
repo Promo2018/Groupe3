@@ -7,6 +7,11 @@ using BoVoyages.Controller;
 
 namespace BoVoyages.View
 {
+    /**
+     * MenuGestionVoyage class.
+     * Provides menu options and what to call when an option is selected.
+     */
+
     public class MenuGestionVoyage : Menu
     {
         private GestionVoyage gestionVoyage = new GestionVoyage();
@@ -19,8 +24,10 @@ namespace BoVoyages.View
             this.previousMenu = previousMenu;
         }
 
+        // Display Menu options.
         public override void affiche()
         {
+            System.Console.Clear();
             System.Console.WriteLine("\n\n*********************************************************************");
             System.Console.WriteLine("******   Menu Voyage   **********************************************");
             System.Console.WriteLine("BoVoyages : Sélectionnez une option dans la liste ci-dessous :");
@@ -30,27 +37,34 @@ namespace BoVoyages.View
             System.Console.WriteLine("BoVoyages :\t 0 - Quitter");
         }
 
+        // Execute requested option.
         public override Menu execute(int sel)
         {
             Menu menu = this;
 
             if (sel == 1)
             {
-                System.Console.WriteLine("Voyage Id" + "\t" + "Date-Aller" + "\t" + "Date-Retour" + "\t" + "Places Disponible" + "\t" + "Tarif Tout Compris" + "\t" + "Pays");
+                string heading = "Voyage Id" + "\t" + "Date-Aller" + "\t" + "Date-Retour" + "\t" + "Places Disponible" + "\t" + "Tarif Tout Compris" + "\t" + "Pays";
+                List<string> items = new List<string>();
                 foreach (Model.Voyage voyage in voyage.getVoyages())
                 {
-                    System.Console.WriteLine(voyage.VoyageId + "\t" + voyage.DateAller.ToShortDateString() + "\t" + voyage.DateRetour.ToShortDateString() + "\t" + voyage.PlacesDisponible + "\t\t\t" + voyage.TarifToutCompris + "\t\t\t" + voyage.Destination.Pays);
+                    items.Add(voyage.VoyageId + "\t\t" + voyage.DateAller.ToShortDateString() + "\t" + voyage.DateRetour.ToShortDateString() + "\t" + voyage.PlacesDisponible + "\t\t\t" + voyage.TarifToutCompris.ToString("C") + "\t\t" + voyage.Destination.Pays);
                 }
+                displayListToConsole(heading, items);
             }
             else if (sel == 2)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Supprimer les voyages perimés");
-                gestionVoyage.deleteVoyagesPerimes();
+                gestionVoyage.deleteVoyagesPerimes(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 3)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Ajouter les voyages");
-                gestionVoyage.ajouterVoyages();
+                gestionVoyage.addVoyages(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 0)
             {

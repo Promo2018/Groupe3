@@ -7,6 +7,11 @@ using BoVoyages.Controller;
 
 namespace BoVoyages.View
 {
+    /**
+     * MenuGestionClient class.
+     * Provides menu options and what to call when an option is selected.
+     */
+
     public class MenuGestionClient : Menu
     {
         private GestionClient gestionClient = new GestionClient();
@@ -18,8 +23,10 @@ namespace BoVoyages.View
             nombreOptions = 4;
         }
 
+        // Display Menu options.
         public override void affiche()
         {
+            System.Console.Clear();
             System.Console.WriteLine("\n\n*********************************************************************");
             System.Console.WriteLine("******   Menu Client   **********************************************");
             System.Console.WriteLine("BoVoyages : Sélectionnez une option dans la liste ci-dessous :");
@@ -30,6 +37,7 @@ namespace BoVoyages.View
             System.Console.WriteLine("BoVoyages :\t 0 - Quitter");
         }
 
+        // Execute requested option.
         public override Menu execute(int sel)
         {
             Menu menu = this;
@@ -37,22 +45,30 @@ namespace BoVoyages.View
             if (sel == 1)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Lister les clients");
-                gestionClient.listerClients();
+                gestionClient.getClients(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 2)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Faire une synthèse mensuelle");
-                gestionClient.syntheseMensuelle();
+                gestionClient.syntheseMensuelle(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 3)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Promouvoir les voyages disponibles par mail");
-                gestionClient.envoyerPub();
+                gestionClient.sendPub(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 4)
             {
                 System.Console.WriteLine("BoVoyages >>>>>>>>> - Envoyer les questionnaire la satisfaction par mail");
-                gestionClient.envoyerQuestionnaire();
+                gestionClient.sendQuestionnaire(menu);
+                System.Console.WriteLine("Appuyez sur n'importe quelle touche pour continuer...");
+                System.Console.ReadKey();
             }
             else if (sel == 0)
             {

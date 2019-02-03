@@ -7,6 +7,11 @@ using System.IO;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public class Voyage : Table
     {
         private Voyage_db voyage_db = new Voyage_db();
@@ -89,6 +94,7 @@ namespace BoVoyages.Model
             return voyage_db.exists(voyageId);
         }
 
+        // For debug purposes.
         public override string ToString()
         {
             string outString = "";

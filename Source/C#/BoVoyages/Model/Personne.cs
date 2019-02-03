@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public abstract class Personne : Table
     {
         private string civilite;
@@ -34,6 +39,7 @@ namespace BoVoyages.Model
         public string Telephone { get => telephone; set => telephone = value; }
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
 
+        // Calculate Age 
         public int Age()
         {
             return  DateTime.Today.Year - dateNaissance.Year;

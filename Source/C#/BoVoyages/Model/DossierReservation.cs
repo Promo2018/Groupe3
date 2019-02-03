@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.Model
 {
+    /**
+     * Datastructure class.
+     * Provides data attributes for this classs and via a facade pattern calls the appropirate database methods.
+     */
+
     public class DossierReservation : Table
     {
         private DossierReservation_db dossier_Db = new DossierReservation_db();
@@ -105,10 +110,12 @@ namespace BoVoyages.Model
             dossier_Db.insertDossierAssurance(dossierId, assuranceId);
         }
 
+        // Calculate the price of a voyage including assurance, if requested.
+        // This amount is then multiplied by the reduction rate for each participant and added together for the Total Price of the Voyage. 
         public double getPrixTotal(int dossierId)
         {
             double prix = 0;
-            double prixVoyage = getPrixVoyage();
+            double prixVoyage = getPrixVoyage(dossierId);
             List<Participant> participants = getParticipantsForDossier(dossierId);
             foreach(Participant participant in participants)
             {
@@ -117,9 +124,10 @@ namespace BoVoyages.Model
             return prix;
         }
 
-        public double getPrixVoyage()
+        // Calculate the price of a voyage per participant, including assurance if requested.
+        public double getPrixVoyage(int dossierId)
         {
-            return dossier_Db.getPrixVoyage(voyageId);
+            return dossier_Db.getPrixVoyage(voyageId, dossierId);
         }
 
         public void annuler(int dossierId, RaisonAnnulationDossier raison)
@@ -137,6 +145,7 @@ namespace BoVoyages.Model
             dossier_Db.validerSolvabilite(dossierId);
         }
 
+        // ToString method for debug purposes.
         public override string ToString()
         {
             string dr = "";

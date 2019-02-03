@@ -7,6 +7,11 @@ using System.Xml;
 
 namespace BoVoyages.Model
 {
+    /**
+     * This class reads properties stored in the BoVoyages.xml properties file located in the Properties folder in the BoVoyages directory.
+     * This class implments the singleton design pattern, providing one instance, for all object wishing to have access to the Properties file.
+     */
+
     public class Properties
     {
         private static Properties props = null;

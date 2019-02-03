@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BoVoyages.View
 {
+    /**
+     * Commercial class.
+     * Provides menu options and what to call when an option is selected.
+     */
+
     public class MenuCommercial : Menu
     {
         private Menu previousMenu;
@@ -20,8 +25,10 @@ namespace BoVoyages.View
             nombreOptions = 2;
         }
 
+        // Display Menu options.
         public override void affiche()
         {
+            System.Console.Clear();
             System.Console.WriteLine("\n\n*********************************************************************");
             System.Console.WriteLine("******   Menu Commercial   ******************************************");
             System.Console.WriteLine("BoVoyages : Sélectionnez une option dans la liste ci-dessous :");
@@ -30,6 +37,7 @@ namespace BoVoyages.View
             System.Console.WriteLine("BoVoyages :\t 0 - Quitter");
         }
 
+        // Execute requested option.
         public override Menu execute(int sel)
         {
             Menu menu = null;

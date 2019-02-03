@@ -10,25 +10,42 @@ namespace BoVoyages.Controller
 {
     public class Voyage
     {
-        private List<Model.Voyage> voyages;
+        /**
+         * Class to manage all aspects of voyage reservations.
+         */
 
-        public Voyage()
-        {
-            voyages = new Model.Voyage().getVoyages();
-        }
+        public Voyage() {}
 
+        // Get a list of all voyages
         public List<Model.Voyage> getVoyages()
         {
-            return voyages;
+            return new Model.Voyage().getVoyages(); ;
         }
 
+        // Delete a voyage reservation. 
         public void deleteReservation(Menu menu)
         {
             Model.DossierReservation reservation = new DossierReservation();
             menu.display("Entrer le numéro de Dossier que vous voulez supprimer");
-            reservation.deleteDossier(menu.readInt());
+            int dossierId = menu.readInt();
+            int ret = reservation.deleteDossier(dossierId);
+            if(ret == 1)
+            {
+                menu.display("Dossier avec le numéro " + dossierId + " était bien supprimé;");
+            } else
+            {
+                menu.display("Dossier avec le numéro " + dossierId + " n'existe pas.");
+            }
         }
 
+        // Create a voyage reservation. 
+        // If the voyage exists:
+        // 1. Get number of participants.
+        // 2. If the person resering is not yet a client, create client information.
+        // 3. Fill in information for each Participant.
+        // 4. If assurance is requested, add it.
+        // 5. Display total voyage price.
+        // 6. Ask for confirmation, if yes commit otherwise abandon.
         public void createReservation(Menu menu)
         {
             Model.DossierReservation reservation = new DossierReservation();
@@ -135,6 +152,7 @@ namespace BoVoyages.Controller
             }
         }
 
+        // Returns true if the string contains "Oui" or "O", otherwise false.
         private bool confirm(string answer)
         {
             bool confirm = false;
@@ -145,6 +163,7 @@ namespace BoVoyages.Controller
             return confirm;
         }
 
+        // Requests infomation for client and participants.
         private Personne fillPersonne(Menu menu, Personne personne)
         {
             menu.display("Civilité:");
@@ -162,6 +181,7 @@ namespace BoVoyages.Controller
             return personne;
         }
 
+        // If date entered is not a valid date, create a default date.
         private DateTime getDate(string d)
         {
             DateTime date;

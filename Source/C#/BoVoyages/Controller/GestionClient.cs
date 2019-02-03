@@ -4,41 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BoVoyages.Model;
+using BoVoyages.View;
 
 namespace BoVoyages.Controller
 {
-    /*Classe qui permet de gérer les clients en affichant une liste complète ou le résultat d'une recherche. 
-    L'ajout et la suppression de clients seront gérés au moment de leur achat d'un voyage sur le site internet.*/
-
+    /**
+     * Class to manage all aspects of interaction with clients
+     */
+    
     class GestionClient
     {
-        //Afficher une liste de tous les clients
+        public GestionClient() {}
 
-        public void listerClients()
+        // List all clients.
+        // Not yet implemented.
+        public void getClients(Menu menu)
         {
-            Console.WriteLine(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
+            menu.display(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
         }
 
-        //Afficher seulement les clients demandés, en fonction d'une entrée et dans une colonne au choix
-        //Cette recherche pourra servir ultérieurement à cibler les envois de mails et de publicité
-
-
-        //Pas encore implémenté. Cette fonctionnalité fera une synthèse des questionnaires quand ceux-ci seront disponibles.
-        public void syntheseMensuelle()
+        // Perform a monthly Synthes of client questionaires.
+        // Not yet implemented.
+        public void syntheseMensuelle(Menu menu)
         {
-            Console.WriteLine(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
+            menu.display(">>>>>>>>>>   PAS ENCORE IMPLEMENTE !");
         }
 
-        // Le questionnaire de satisfaction sera vraiment envoyé dans une prochaine version
-        public void envoyerQuestionnaire()
+        // Send questionaires to clients.
+        // Not yet implemented.
+        public void sendQuestionnaire(Menu menu)
         {
-            Console.WriteLine("Questionnaire envoyé aux clients.");
+            menu.display("Questionnaire envoyé aux clients.");
         }
 
-        // La promotion des voyages encore disponibles sera vraiment envoyé dans une prochaine version
-        public void envoyerPub()
+        // Send advertising to clients.
+        // Not yet implemented.
+        public void sendPub(Menu menu)
         {
-            Console.WriteLine("Promotion des voyages encore disponibles envoyée aux clients.");
+            menu.display("Promotion des voyages encore disponibles envoyée aux clients.");
         }
     }
 }
